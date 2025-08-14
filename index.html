@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apply — Online Teacher Recruitment</title>
+  <style>
+    /* Basic reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: #f6f7fb; color:#111; }
+
+    /* Background educator image that runs through the page */
+    body::before{
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=000000'); /* replace with your own */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.10;
+      z-index: -1;
+      filter: blur(0.5px);
+    }
+
+    .container { max-width: 980px; margin: 36px auto; padding: 28px; background: rgba(255,255,255,0.96); border-radius: 12px; box-shadow: 0 10px 30px rgba(10,10,20,0.08); }
+
+    header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+    .logo { width:72px; height:72px; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#06b6d4); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:20px;}
+    h1 { font-size:20px; }
+    p.lead { color: #334155; margin-top:6px; }
+
+    form { display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:18px; }
+    .full { grid-column: 1 / -1; }
+    label { display:block; font-size:13px; margin-bottom:6px; color:#0f172a; }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea, input[type="number"] {
+      width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;
+    }
+    textarea { min-height:120px; resize:vertical; }
+    .small { font-size:12px; color:#475569; margin-top:6px; }
+
+    .row { display:flex; gap:12px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:10px; background:#0ea5e9; color:white; font-weight:600; border:0; cursor:pointer; }
+    .btn.secondary { background:#94a3b8; }
+    .note { font-size:13px; color:#475569; margin-top:8px; }
+
+    .status { padding:10px 12px; border-radius:8px; margin-top:8px; display:none; }
+    .status.success { background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0; display:block; }
+    .status.error { background:#fff7f7; color:#7f1d1d; border:1px solid #fecaca; display:block; }
+
+    footer { margin-top:18px; font-size:13px; color:#475569; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+
+    @media (max-width:800px){
+      form { grid-template-columns: 1fr; }
+      .logo { width:56px; height:56px; font-size:18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="logo">EDU</div>
+      <div>
+        <h1>Recruit Online Teachers</h1>
+        <p class="lead">Collect applications fast. Ask for the details you need — qualifications, subjects, availability, and a CV.</p>
+      </div>
+    </header>
+
+    <form id="applicationForm" enctype="multipart/form-data" class="aria-form" novalidate>
+      <!-- Left column -->
+      <div>
+        <label for="fullName">Full name *</label>
+        <input id="fullName" name="fullName" type="text" required placeholder="e.g. Mary Johnson" />
+
+        <label for="email" style="margin-top:12px;">Email *</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
+        <label for="phone" style="margin-top:12px;">Phone number *</label>
+        <input id="phone" name="phone" type="tel" required placeholder="+234 801 234 5678" />
+
+        <label for="subjects" style="margin-top:12px;">Subjects / Topics *</label>
+        <input id="subjects" name="subjects" type="text" required placeholder="e.g. A-Level Maths, Physics, Electronics" />
+
+        <label for="hourlyRate" style="margin-top:12px;">Suggested hourly rate (optional)</label>
+        <input id="hourlyRate" name="hourlyRate" type="number" min="0" step="0.5" placeholder="e.g. 2.50 (USD/hour)" />
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <label for="qualification">Highest qualification *</label>
+        <select id="qualification" name="qualification" required>
+          <option value="">Select qualification</option>
+          <option>PhD</option>
+          <option>Masters</option>
+          <option>Bachelors</option>
+          <option>HND / Diploma</option>
+          <option>Professional Certificate</option>
+          <option>Other</option>
+        </select>
+
+        <label for="experience" style="margin-top:12px;">Years of teaching experience *</label>
+        <input id="experience" name="experience" type="number" min="0" required placeholder="e.g. 3" />
+
+        <label for="availability" style="margin-top:12px;">Availability (days & times) *</label>
+        <input id="availability" name="availability" type="text" required placeholder="e.g. Mon-Fri 5pm-9pm (WAT) / Weekends 9am-2pm" />
+
+        <label for="language" style="margin-top:12px;">Languages spoken</label>
+        <input id="language" name="language" type="text" placeholder="English, Yoruba, Hausa..." />
+      </div>
+
+      <!-- Full width -->
+      <div class="full">
+        <label for="bio">Short bio / teaching approach *</label>
+        <textarea id="bio" name="bio" required placeholder="Tell us briefly about your teaching approach, tools you use (Zoom/Google Meet), and one success story."></textarea>
+
+        <label for="cv" style="margin-top:12px;">Upload CV (PDF preferred) *</label>
+        <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required />
+
+        <div class="row" style="margin-top:12px;">
+          <button class="btn" type="submit">Submit application</button>
+          <button class="btn secondary" type="button" id="clearBtn">Clear form</button>
+        </div>
+
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
+        <p class="note">We will send a confirmation to your email. Keep your CV file size under 5MB.</p>
+      </div>
+    </form>
+
+    <footer>
+      <div>Tip: change the Formspree endpoint in the script to point to your own form ID.</div>
+      <div style="opacity:0.85">Built for quick teacher intake — no frills.</div>
+    </footer>
+  </div>
+
+  <script>
+    // --- Configuration: change endpoint if needed ---
+    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // <-- your Formspree endpoint
+
+    // --- Helpers ---
+    const form = document.getElementById('applicationForm');
+    const status = document.getElementById('statusMessage');
+    const clearBtn = document.getElementById('clearBtn');
+
+    function showStatus(message, type='success') {
+      status.textContent = message;
+      status.className = 'status ' + (type === 'error' ? 'error' : 'success');
+    }
+
+    function clearStatus() {
+      status.style.display = 'none';
+      status.textContent = '';
+    }
+
+    function validateForm() {
+      // Basic client-side checks
+      const required = form.querySelectorAll('[required]');
+      for (const el of required) {
+        if (!el.value || (el.type === 'file' && el.files.length === 0)) {
+          el.focus();
+          return { ok: false, message: 'Please fill all required fields.' };
+        }
+      }
+      const email = form.querySelector('input[type="email"]').value.trim();
+      if (!/^\S+@\S+\.\S+$/.test(email)) return { ok: false, message: 'Please enter a valid email address.' };
+      return { ok: true };
+    }
+
+    // --- Save a local backup to localStorage (useful for testing; remove if you don't want it) ---
+    function saveLocalCopy(data) {
+      try {
+        const items = JSON.parse(localStorage.getItem('teacherApps') || '[]');
+        items.unshift({ data, time: new Date().toISOString() });
+        localStorage.setItem('teacherApps', JSON.stringify(items.slice(0, 50)));
+      } catch (e) {
+        console.warn('localStorage save failed', e);
+      }
+    }
+
+    // --- Submit handler ---
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      clearStatus();
+
+      const v = validateForm();
+      if (!v.ok) { showStatus(v.message, 'error'); return; }
+
+      // Build FormData
+      const formData = new FormData();
+      formData.append('fullName', form.fullName.value.trim());
+      formData.append('email', form.email.value.trim());
+      formData.append('phone', form.phone.value.trim());
+      formData.append('subjects', form.subjects.value.trim());
+      formData.append('hourlyRate', form.hourlyRate.value.trim());
+      formData.append('qualification', form.qualification.value);
+      formData.append('experience', form.experience.value);
+      formData.append('availability', form.availability.value.trim());
+      formData.append('language', form.language.value.trim());
+      formData.append('bio', form.bio.value.trim());
+
+      // file
+      const cvFile = form.cv.files[0];
+      if (cvFile) formData.append('cv', cvFile, cvFile.name);
+
+      // Optional: Save local copy
+      saveLocalCopy({
+        fullName: form.fullName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        subjects: form.subjects.value.trim(),
+        qualification: form.qualification.value,
+        experience: form.experience.value,
+        availability: form.availability.value.trim(),
+        timestamp: new Date().toISOString()
+      });
+
+      // POST to Formspree endpoint
+      showStatus('Submitting application — please wait...');
+      try {
+        const resp = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          body: formData,
+          // NOTE: Formspree accepts form-data POST. If Formspree requires JSON for your plan,
+          // you'll need to send JSON instead and remove file uploading or use a server to handle files.
+        });
+
+        if (resp.ok) {
+          showStatus('Application submitted. We will contact you by email.', 'success');
+          form.reset();
+        } else {
+          // Try to read JSON error
+          let errText = 'Submission failed. Try again later.';
+          try {
+            const body = await resp.json();
+            if (body && body.error) errText = body.error;
+          } catch (_) {}
+          showStatus(errText, 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showStatus('Network error. Check your connection and try again.', 'error');
+      }
+    });
+
+    // Clear local form fields
+    clearBtn.addEventListener('click', () => {
+      if (confirm('Clear all form fields?')) {
+        form.reset();
+        clearStatus();
+      }
+    });
+  </script>
+</body>
+</html>
