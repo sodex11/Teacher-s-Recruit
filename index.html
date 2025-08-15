@@ -6,17 +6,8 @@
   <title>Apply — Online Teacher Recruitment</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height: 100%; font-family: Arial, sans-serif; background: #f6f7fb; color:#111; }
-    body::before{
-      content: "";
-      position: fixed; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600');
-      background-size: cover; background-position: center;
-      opacity: 0.10; z-index: -1; filter: blur(0.5px);
-    }
-    .container { max-width: 980px; margin: 36px auto; padding: 28px; background: rgba(255,255,255,0.96); border-radius: 12px; }
-    header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
-    .logo { width:72px; height:72px; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#06b6d4); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:20px;}
+    body { font-family: Arial, sans-serif; background: #f6f7fb; color:#111; }
+    .container { max-width: 980px; margin: 36px auto; padding: 28px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);}
     form { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
     .full { grid-column: 1 / -1; }
     label { display:block; font-size:13px; margin-bottom:6px; color:#0f172a; }
@@ -33,47 +24,50 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <div class="logo">EDU</div>
-      <div>
-        <h1>Recruit Online Teachers</h1>
-      </div>
-    </header>
+    <h1>Recruit Online Teachers</h1>
 
     <form id="applicationForm" novalidate>
       <div>
-        <label for="fullName">Full name *</label>
-        <input id="fullName" name="fullName" type="text" required>
+        <label>Full name *</label>
+        <input name="fullName" type="text" required>
 
-        <label for="email" style="margin-top:12px;">Email *</label>
-        <input id="email" name="email" type="email" required>
+        <label style="margin-top:12px;">Email *</label>
+        <input name="email" type="email" required>
 
-        <label for="phone" style="margin-top:12px;">Phone number *</label>
-        <input id="phone" name="phone" type="tel" required>
+        <label style="margin-top:12px;">Phone number *</label>
+        <input name="phone" type="tel" required>
 
-        <label for="university" style="margin-top:12px;">University graduated from *</label>
-        <input id="university" name="university" type="text" required>
+        <label style="margin-top:12px;">School graduated from *</label>
+        <select id="schoolType" name="schoolType" required>
+          <option value="">Select school type</option>
+          <option value="University">University</option>
+          <option value="Polytechnic">Polytechnic</option>
+          <option value="College of Education">College of Education</option>
+          <option value="Other">Other</option>
+        </select>
+        <input id="otherSchool" name="otherSchool" type="text" placeholder="Specify other school" style="margin-top:8px; display:none;">
 
-        <label for="grade" style="margin-top:12px;">Degree grade *</label>
-        <input id="grade" name="grade" type="text" required>
+        <label style="margin-top:12px;">Degree grade *</label>
+        <select id="grade" name="grade" required>
+          <option value="">Select grade</option>
+        </select>
       </div>
 
       <div>
-        <label for="subjects">Subjects *</label>
+        <label>Subjects you can teach *</label>
         <select id="subjects" name="subjects" multiple required>
           <option value="Mathematics">Mathematics</option>
           <option value="Physics">Physics</option>
           <option value="Engineering">Engineering</option>
           <option value="Other">Other</option>
         </select>
-
         <input id="otherSubject" name="otherSubject" type="text" placeholder="Specify other subject" style="margin-top:8px; display:none;">
 
-        <label for="hourlyRate" style="margin-top:12px;">Hourly rate (₦) *</label>
-        <input id="hourlyRate" name="hourlyRate" type="number" min="2000" max="4000" step="100" required>
+        <label style="margin-top:12px;">Hourly rate (₦) *</label>
+        <input name="hourlyRate" type="number" min="2000" max="4000" step="100" required>
 
-        <label for="qualification" style="margin-top:12px;">Highest qualification *</label>
-        <select id="qualification" name="qualification" required>
+        <label style="margin-top:12px;">Highest qualification *</label>
+        <select name="qualification" required>
           <option value="">Select qualification</option>
           <option>PhD</option>
           <option>Masters</option>
@@ -83,19 +77,19 @@
           <option>Other</option>
         </select>
 
-        <label for="experience" style="margin-top:12px;">Years of teaching experience *</label>
-        <input id="experience" name="experience" type="number" min="0" required>
+        <label style="margin-top:12px;">Years of teaching experience *</label>
+        <input name="experience" type="number" min="0" required>
       </div>
 
       <div class="full">
-        <label for="availability">Availability (days & times) *</label>
-        <input id="availability" name="availability" type="text" required>
+        <label>Availability (days & times) *</label>
+        <input name="availability" type="text" required>
 
-        <label for="language" style="margin-top:12px;">Languages spoken</label>
-        <input id="language" name="language" type="text">
+        <label style="margin-top:12px;">Languages spoken</label>
+        <input name="language" type="text">
 
-        <label for="bio" style="margin-top:12px;">Short bio / teaching approach *</label>
-        <textarea id="bio" name="bio" required></textarea>
+        <label style="margin-top:12px;">Short bio / teaching approach *</label>
+        <textarea name="bio" required></textarea>
 
         <div style="margin-top:12px;">
           <button class="btn" type="submit">Submit application</button>
@@ -111,9 +105,31 @@
     const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl';
     const form = document.getElementById('applicationForm');
     const status = document.getElementById('statusMessage');
-    const clearBtn = document.getElementById('clearBtn');
     const subjectsSelect = document.getElementById('subjects');
     const otherSubjectInput = document.getElementById('otherSubject');
+    const schoolSelect = document.getElementById('schoolType');
+    const otherSchoolInput = document.getElementById('otherSchool');
+    const gradeSelect = document.getElementById('grade');
+
+    const gradesBySchool = {
+      University: ["First Class", "Second Class Upper", "Second Class Lower", "Third Class"],
+      Polytechnic: ["Distinction", "Upper Credit", "Lower Credit", "Pass"],
+      "College of Education": ["Distinction", "Credit", "Pass"],
+      Other: []
+    };
+
+    schoolSelect.addEventListener('change', () => {
+      otherSchoolInput.style.display = schoolSelect.value === 'Other' ? 'block' : 'none';
+      gradeSelect.innerHTML = '<option value="">Select grade</option>';
+      if (gradesBySchool[schoolSelect.value]) {
+        gradesBySchool[schoolSelect.value].forEach(g => {
+          const opt = document.createElement('option');
+          opt.value = g;
+          opt.textContent = g;
+          gradeSelect.appendChild(opt);
+        });
+      }
+    });
 
     subjectsSelect.addEventListener('change', () => {
       const selected = Array.from(subjectsSelect.selectedOptions).map(o => o.value);
@@ -142,13 +158,14 @@
       const formData = new FormData(form);
       formData.set('subjects', Array.from(subjectsSelect.selectedOptions).map(o => o.value).join(', '));
 
-      showStatus('Submitting application — please wait...');
       try {
         const resp = await fetch(FORMSPREE_URL, { method: 'POST', body: formData });
         if (resp.ok) {
           showStatus('Application submitted successfully.', 'success');
           form.reset();
           otherSubjectInput.style.display = 'none';
+          otherSchoolInput.style.display = 'none';
+          gradeSelect.innerHTML = '<option value="">Select grade</option>';
         } else {
           showStatus('Submission failed. Try again later.', 'error');
         }
@@ -157,7 +174,13 @@
       }
     });
 
-    clearBtn.addEventListener('click', () => { form.reset(); clearStatus(); otherSubjectInput.style.display = 'none'; });
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      form.reset();
+      clearStatus();
+      otherSubjectInput.style.display = 'none';
+      otherSchoolInput.style.display = 'none';
+      gradeSelect.innerHTML = '<option value="">Select grade</option>';
+    });
   </script>
 </body>
 </html>
