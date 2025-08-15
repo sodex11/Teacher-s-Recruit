@@ -21,7 +21,7 @@
       z-index: -1;
     }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 40px auto;
       background: rgba(255,255,255,0.96);
       padding: 20px;
@@ -71,7 +71,7 @@
   <div class="container">
     <h1>Online Teacher Recruitment Form</h1>
 
-    <form id="applicationForm" enctype="multipart/form-data" novalidate>
+    <form id="applicationForm" novalidate>
       <div>
         <label>Full Name *</label>
         <input type="text" name="fullName" required>
@@ -108,7 +108,7 @@
         <textarea name="bio" required></textarea>
       </div>
       <div class="full">
-        <label>Upload CV (PDF/DOC)</label>
+        <label>Upload CV (PDF/DOC) *</label>
         <input type="file" name="cv" accept=".pdf,.doc,.docx">
       </div>
       <div class="full">
@@ -121,15 +121,23 @@
   <script>
     const form = document.getElementById('applicationForm');
     const statusMessage = document.getElementById('statusMessage');
-    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // Your endpoint
+    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // your endpoint
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       statusMessage.style.display = 'block';
       statusMessage.textContent = 'Sending...';
       statusMessage.className = 'status';
 
       const formData = new FormData(form);
+
+      // For free plan — do NOT send file, only send filename
+      const fileInput = form.querySelector('input[name="cv"]');
+      if (fileInput.files.length > 0) {
+        formData.delete('cv'); // remove actual file
+        formData.append('cv_filename', fileInput.files[0].name);
+      }
 
       try {
         const response = await fetch(FORMSPREE_URL, {
@@ -142,7 +150,8 @@
           statusMessage.className = 'status success';
           form.reset();
         } else {
-          statusMessage.textContent = '❌ Error sending application — please try again.';
+          const errorData = await response.json().catch(() => ({}));
+          statusMessage.textContent = '❌ Failed to send application. ' + (errorData.error || '');
           statusMessage.className = 'status error';
         }
       } catch (error) {
