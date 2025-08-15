@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mathematics Test — 15 minutes</title>
+<style>
+  body{font-family:Arial;background:#f6f7fb;padding:12px}
+  .container{max-width:980px;margin:auto;background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,0.06)}
+  h2{margin:0}
+  .q{margin-top:12px}
+  input[type="text"]{width:100%;padding:8px;border-radius:6px;border:1px solid #cbd5e1}
+  #timer{font-weight:700;color:#0f172a}
+  button{margin-top:12px;padding:10px 14px;border-radius:8px;background:#0ea5e9;border:0;color:white;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Mathematics Test — 15 minutes</h2>
+    <div style="margin-top:8px">Time remaining: <span id="timer">15:00</span></div>
+
+    <form id="testForm">
+      <!-- 20 tougher maths numerical questions -->
+      <div class="q">1. Solve 3^{2x} = 81. x = <input name="q1" type="text" required></div>
+      <div class="q">2. If sinθ=0.6 (θ acute). Calculate cosθ + tanθ = <input name="q2" type="text" required></div>
+      <div class="q">3. ∫₀^{π/4} sec² x dx = <input name="q3" type="text" required></div>
+      <div class="q">4. Solve log₂(x+3)=5. x = <input name="q4" type="text" required></div>
+      <div class="q">5. Triangle sides 7,8,9. Area (cm²) = <input name="q5" type="text" required></div>
+      <div class="q">6. d/dx of e^{2x} sin x at x=π/4 = <input name="q6" type="text" required></div>
+      <div class="q">7. Mean of six numbers is 12. If removing one yields mean 10 for remaining five, removed number = <input name="q7" type="text" required></div>
+      <div class="q">8. Solve 2x² -5x -3 = 0. x = <input name="q8" type="text" required></div>
+      <div class="q">9. Bag: 4R,5B,6G. Two drawn without replacement. P(both green)= <input name="q9" type="text" required></div>
+      <div class="q">10. Σ_{k=1}^{10} k² = <input name="q10" type="text" required></div>
+      <div class="q">11. Roots of f(x)=x³-6x²+11x-6 = <input name="q11" type="text" required></div>
+      <div class="q">12. Distance between (3,-2) and (-4,5) = <input name="q12" type="text" required></div>
+      <div class="q">13. lim_{x→∞} (5x³+2)/(3x³-x) = <input name="q13" type="text" required></div>
+      <div class="q">14. GP a=2, r=3, n=6. Sum = <input name="q14" type="text" required></div>
+      <div class="q">15. dr/dt = 0.02 m/s when r=0.5 m. Rate of increase of volume (m³/s) = <input name="q15" type="text" required></div>
+      <div class="q">16. Solve e^{2x}=20. x = <input name="q16" type="text" required></div>
+      <div class="q">17. If y=ln(3x²+1), dy/dx at x=1 = <input name="q17" type="text" required></div>
+      <div class="q">18. Coin 5 tosses. P(exactly 3 heads) = <input name="q18" type="text" required></div>
+      <div class="q">19. Expand (2x-1)^4 coefficient of x² = <input name="q19" type="text" required></div>
+      <div class="q">20. Perpendicular bisector of (2,3) & (6,7) in form y = mx + c -> give m and c: m= <input name="q20a" type="text" required> c= <input name="q20b" type="text" required></div>
+
+      <button type="submit">Submit Maths Answers</button>
+    </form>
+    <div id="status" style="margin-top:12px"></div>
+  </div>
+
+<script>
+const TEST_NAME = 'maths';
+const TIME_LIMIT_SECONDS = 15 * 60;
+let remaining = TIME_LIMIT_SECONDS;
+const timerEl = document.getElementById('timer
