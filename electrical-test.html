@@ -1,101 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Electrical/Electronics Test — 15 minutes</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Electrical & Electronics Test</title>
 <style>
-  body{font-family:Arial;background:#f6f7fb;padding:12px}
-  .container{max-width:980px;margin:auto;background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,0.06)}
-  h2{margin:0}
-  .q{margin-top:12px}
-  input[type="text"]{width:100%;padding:8px;border-radius:6px;border:1px solid #cbd5e1}
-  #timer{font-weight:700;color:#0f172a}
-  button{margin-top:12px;padding:10px 14px;border-radius:8px;background:#0ea5e9;border:0;color:white;font-weight:700}
+  body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; background: #f7f7f7; padding: 20px; }
+  h1 { text-align: center; color: #333; }
+  .timer { text-align: center; font-weight: bold; font-size: 18px; margin-bottom: 20px; }
+  .question { background: #fff; padding: 15px; margin-bottom: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+  .submit-wrap { text-align: center; margin-top: 10px; }
+  button { background: #007BFF; color: #fff; padding: 10px 16px; border: 0; border-radius: 6px; cursor: pointer; font-size: 16px; }
+  button:hover { background: #0056b3; }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Electrical & Electronics Test — 15 minutes</h2>
-    <div style="margin-top:8px">Time remaining: <span id="timer">15:00</span></div>
+<h1>Electrical & Electronics Test</h1>
+<div class="timer">Time Remaining: <span id="time">07:00</span></div>
 
-    <form id="testForm">
-      <div class="q">1. R1=15Ω || R2=30Ω in parallel. Total resistance (Ω): <input name="q1" type="text" required></div>
-      <div class="q">2. 24 V battery, I=3 A. Power (W): <input name="q2" type="text" required></div>
-      <div class="q">3. 10 μF charged to 100 V. Charge (C): <input name="q3" type="text" required></div>
-      <div class="q">4. L=0.5 H, ΔI from 2 to 6 A in 0.02 s: induced EMF (V): <input name="q4" type="text" required></div>
-      <div class="q">5. 200 turns area=0.01 m², B=0.2 T reversed in 0.1 s. Avg emf (V): <input name="q5" type="text" required></div>
-      <div class="q">6. 4-pole generator at 1800 rpm. Frequency (Hz): <input name="q6" type="text" required></div>
-      <div class="q">7. Transformer 1000→200 turns, Vp=500 V. Vs (V): <input name="q7" type="text" required></div>
-      <div class="q">8. Motor draws 15 A at 240 V, efficiency 85%. Output power (W): <input name="q8" type="text" required></div>
-      <div class="q">9. Resistor temp coeff 0.004/°C, R(20)=100Ω. R(80) = <input name="q9" type="text" required></div>
-      <div class="q">10. Inductor 0.02 H carrying 5 A. Energy stored (J): <input name="q10" type="text" required></div>
-      <div class="q">11. Capacitor reactance Xc=106.1Ω at 50Hz. Capacitance (F): <input name="q11" type="text" required></div>
-      <div class="q">12. DC generator 5 kW at 250 V. Current (A): <input name="q12" type="text" required></div>
-      <div class="q">13. 20 μF charged to 200 V. Energy (J): <input name="q13" type="text" required></div>
-      <div class="q">14. Series resistors 6Ω & 4Ω on 10 V battery. Current (A): <input name="q14" type="text" required></div>
-      <div class="q">15. 230 V motor, I=10 A, pf=0.9. Input power (W): <input name="q15" type="text" required></div>
-      <div class="q">16. Inductor 0.1 H on 50 Hz. Reactance (Ω): <input name="q16" type="text" required></div>
-      <div class="q">17. 3-phase line V=415 V, I=30 A, pf=0.85. Total power (W): <input name="q17" type="text" required></div>
-      <div class="q">18. Lamp 100 W, 250 V on 200 V supply. Approx power consumed (W): <input name="q18" type="text" required></div>
-      <div class="q">19. Cable R=5Ω, I=8 A for 2 min. Heat produced (J): <input name="q19" type="text" required></div>
-      <div class="q">20. 500 W, 230 V heater for 3 hours. Energy (kWh): <input name="q20" type="text" required></div>
-
-      <button type="submit">Submit Electrical Answers</button>
-    </form>
-    <div id="status" style="margin-top:12px"></div>
+<form id="eeForm">
+  <div class="question">
+    <p>1) Ohm’s law states \( V = IR \). If \(I=2\,\text{A}\) and \(R=5\,\Omega\), \(V=\)</p>
+    <label><input type="radio" name="q1" value="A"> 2 V</label><br>
+    <label><input type="radio" name="q1" value="B"> 10 V</label><br>
+    <label><input type="radio" name="q1" value="C"> 7 V</label><br>
+    <label><input type="radio" name="q1" value="D"> 0.4 V</label>
   </div>
 
+  <div class="question">
+    <p>2) Unit of capacitance is</p>
+    <label><input type="radio" name="q2" value="A"> Farad</label><br>
+    <label><input type="radio" name="q2" value="B"> Henry</label><br>
+    <label><input type="radio" name="q2" value="C"> Ohm</label><br>
+    <label><input type="radio" name="q2" value="D"> Tesla</label>
+  </div>
+
+  <div class="question">
+    <p>3) A 12 V source across a \(6\,\Omega\) resistor draws current of</p>
+    <label><input type="radio" name="q3" value="A"> 0.5 A</label><br>
+    <label><input type="radio" name="q3" value="B"> 2 A</label><br>
+    <label><input type="radio" name="q3" value="C"> 72 A</label><br>
+    <label><input type="radio" name="q3" value="D"> 18 A</label>
+  </div>
+
+  <div class="question">
+    <p>4) In series circuits, total resistance is</p>
+    <label><input type="radio" name="q4" value="A"> Product of resistances</label><br>
+    <label><input type="radio" name="q4" value="B"> Sum of resistances</label><br>
+    <label><input type="radio" name="q4" value="C"> Reciprocal of sum of reciprocals</label><br>
+    <label><input type="radio" name="q4" value="D"> Zero</label>
+  </div>
+
+  <div class="question">
+    <p>5) Power \(P\) in DC circuits equals</p>
+    <label><input type="radio" name="q5" value="A"> \(VI\)</label><br>
+    <label><input type="radio" name="q5" value="B"> \(I/R\)</label><br>
+    <label><input type="radio" name="q5" value="C"> \(V/I\)</label><br>
+    <label><input type="radio" name="q5" value="D"> \(VR\)</label>
+  </div>
+
+  <div class="question">
+    <p>6) The unit of inductance is</p>
+    <label><input type="radio" name="q6" value="A"> Tesla</label><br>
+    <label><input type="radio" name="q6" value="B"> Henry</label><br>
+    <label><input type="radio" name="q6" value="C"> Weber</label><br>
+    <label><input type="radio" name="q6" value="D"> Farad</label>
+  </div>
+
+  <div class="question">
+    <p>7) For a parallel combination, the equivalent resistance is</p>
+    <label><input type="radio" name="q7" value="A"> Less than the smallest branch</label><br>
+    <label><input type="radio" name="q7" value="B"> Greater than the largest branch</label><br>
+    <label><input type="radio" name="q7" value="C"> Equal to the sum</label><br>
+    <label><input type="radio" name="q7" value="D"> Infinite</label>
+  </div>
+
+  <div class="question">
+    <p>8) A diode ideally conducts when</p>
+    <label><input type="radio" name="q8" value="A"> Reverse biased</label><br>
+    <label><input type="radio" name="q8" value="B"> Forward biased</label><br>
+    <label><input type="radio" name="q8" value="C"> No bias</label><br>
+    <label><input type="radio" name="q8" value="D"> AC only</label>
+  </div>
+
+  <div class="question">
+    <p>9) The binary of decimal 13 is</p>
+    <label><input type="radio" name="q9" value="A"> 1100</label><br>
+    <label><input type="radio" name="q9" value="B"> 1101</label><br>
+    <label><input type="radio" name="q9" value="C"> 1011</label><br>
+    <label><input type="radio" name="q9" value="D"> 1110</label>
+  </div>
+
+  <div class="question">
+    <p>10) The ideal op-amp has input impedance</p>
+    <label><input type="radio" name="q10" value="A"> Zero</label><br>
+    <label><input type="radio" name="q10" value="B"> Infinite</label><br>
+    <label><input type="radio" name="q10" value="C"> Equal to feedback</label><br>
+    <label><input type="radio" name="q10" value="D"> 1 Ω</label>
+  </div>
+
+  <div class="question">
+    <p>11) Frequency \(f\) and period \(T\) are related by</p>
+    <label><input type="radio" name="q11" value="A"> \(T=f\)</label><br>
+    <label><input type="radio" name="q11" value="B"> \(T=1/f\)</label><br>
+    <label><input type="radio" name="q11" value="C"> \(T=2\pi f\)</label><br>
+    <label><input type="radio" name="q11" value="D"> \(T=1/2\pi f\)</label>
+  </div>
+
+  <div class="question">
+    <p>12) Transformer works by</p>
+    <label><input type="radio" name="q12" value="A"> Mutual induction</label><br>
+    <label><input type="radio" name="q12" value="B"> Electrolysis</label><br>
+    <label><input type="radio" name="q12" value="C"> Photoelectric effect</label><br>
+    <label><input type="radio" name="q12" value="D"> Static charge</label>
+  </div>
+
+  <div class="question">
+    <p>13) In AC, RMS value of a sine with peak \(V_p\) is</p>
+    <label><input type="radio" name="q13" value="A"> \(V_p\)</label><br>
+    <label><input type="radio" name="q13" value="B"> \(V_p/\sqrt{2}\)</label><br>
+    <label><input type="radio" name="q13" value="C"> \(V_p/2\)</label><br>
+    <label><input type="radio" name="q13" value="D"> \(2V_p\)</label>
+  </div>
+
+  <div class="question">
+    <p>14) Unit of magnetic flux is</p>
+    <label><input type="radio" name="q14" value="A"> Weber</label><br>
+    <label><input type="radio" name="q14" value="B"> Tesla</label><br>
+    <label><input type="radio" name="q14" value="C"> Volt</label><br>
+    <label><input type="radio" name="q14" value="D"> Gauss</label>
+  </div>
+
+  <div class="question">
+    <p>15) A NAND gate is equivalent to</p>
+    <label><input type="radio" name="q15" value="A"> AND followed by NOT</label><br>
+    <label><input type="radio" name="q15" value="B"> OR followed by NOT</label><br>
+    <label><input type="radio" name="q15" value="C"> XOR followed by NOT</label><br>
+    <label><input type="radio" name="q15" value="D"> NOR followed by NOT</label>
+  </div>
+
+  <div class="question">
+    <p>16) For a capacitor, \(X_C = \frac{1}{2\pi f C}\). Increasing \(f\) makes \(X_C\)</p>
+    <label><input type="radio" name="q16" value="A"> Increase</label><br>
+    <label><input type="radio" name="q16" value="B"> Decrease</label><br>
+    <label><input type="radio" name="q16" value="C"> Unchanged</label><br>
+    <label><input type="radio" name="q16" value="D"> Infinite</label>
+  </div>
+
+  <div class="question">
+    <p>17) Three 2 Ω resistors in series equal</p>
+    <label><input type="radio" name="q17" value="A"> 2 Ω</label><br>
+    <label><input type="radio" name="q17" value="B"> 6 Ω</label><br>
+    <label><input type="radio" name="q17" value="C"> 1.5 Ω</label><br>
+    <label><input type="radio" name="q17" value="D"> 0.66 Ω</label>
+  </div>
+
+  <div class="question">
+    <p>18) Logic 1 in TTL is typically</p>
+    <label><input type="radio" name="q18" value="A"> 0 V</label><br>
+    <label><input type="radio" name="q18" value="B"> ~5 V</label><br>
+    <label><input type="radio" name="q18" value="C"> ~3.3 V</label><br>
+    <label><input type="radio" name="q18" value="D"> -5 V</label>
+  </div>
+
+  <div class="question">
+    <p>19) Power factor of a purely resistive load is</p>
+    <label><input type="radio" name="q19" value="A"> 0</label><br>
+    <label><input type="radio" name="q19" value="B"> -1</label><br>
+    <label><input type="radio" name="q19" value="C"> 1</label><br>
+    <label><input type="radio" name="q19" value="D"> 0.5</label>
+  </div>
+
+  <div class="question">
+    <p>20) The device that converts AC to DC is</p>
+    <label><input type="radio" name="q20" value="A"> Inverter</label><br>
+    <label><input type="radio" name="q20" value="B"> Rectifier</label><br>
+    <label><input type="radio" name="q20" value="C"> Transformer</label><br>
+    <label><input type="radio" name="q20" value="D"> Inductor</label>
+  </div>
+
+  <div class="submit-wrap"><button type="submit">Submit Test</button></div>
+</form>
+
 <script>
-const TEST_NAME = 'electrical';
-const TIME_LIMIT_SECONDS = 15 * 60;
-let remaining = TIME_LIMIT_SECONDS;
-const timerEl = document.getElementById('timer');
-const form = document.getElementById('testForm');
-const status = document.getElementById('status');
+  // 7-minute timer
+  let timeLeft = 7 * 60;
+  const timerDisplay = document.getElementById('time');
+  const timer = setInterval(() => {
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    timerDisplay.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+    timeLeft--;
+    if (timeLeft < 0) {
+      clearInterval(timer);
+      document.getElementById('eeForm').requestSubmit();
+    }
+  }, 1000);
 
-const appRaw = sessionStorage.getItem('teacherApplication');
-if (!appRaw) { alert('No application found. Start at application page.'); window.location.href='application.html'; }
+  // Key (hidden)
+  const key = {
+    q1:'B', q2:'A', q3:'B', q4:'B', q5:'A',
+    q6:'B', q7:'A', q8:'B', q9:'B', q10:'B',
+    q11:'B', q12:'A', q13:'B', q14:'A', q15:'A',
+    q16:'B', q17:'B', q18:'B', q19:'C', q20:'B'
+  };
 
-function formatTime(s){ const m=Math.floor(s/60); const ss=s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`; }
-timerEl.textContent = formatTime(remaining);
-const interval = setInterval(()=>{ remaining--; timerEl.textContent = formatTime(remaining); if (remaining<=0){ clearInterval(interval); autoSubmit(); } },1000);
-
-const answersRaw = sessionStorage.getItem('testAnswers');
-let answers = answersRaw ? JSON.parse(answersRaw) : {};
-if (answers[TEST_NAME]) Object.entries(answers[TEST_NAME]).forEach(([k,v]) => { if (form.elements[k]) form.elements[k].value = v; });
-
-async function autoSubmit(){ status.textContent = 'Time up — auto-submitting...'; status.style.color='#b45309'; await submitSection(); }
-
-async function submitSection(){
-  const fd = new FormData(form);
-  const sectionAnswers = {};
-  for (const [k,v] of fd.entries()) sectionAnswers[k]=v.trim();
-  answers[TEST_NAME]=sectionAnswers;
-  sessionStorage.setItem('testAnswers', JSON.stringify(answers));
-
-  const app = JSON.parse(sessionStorage.getItem('teacherApplication')||'{}');
-  let queue = app.testsToTake || [];
-  queue = queue.slice(); queue.shift();
-  app.testsToTake = queue; sessionStorage.setItem('teacherApplication', JSON.stringify(app));
-
-  if (queue.length>0) { window.location.href = queue[0]; }
-  else { await finalSubmit(); }
-}
-
-async function finalSubmit(){
-  status.textContent = 'Submitting all answers and application...';
-  const app = JSON.parse(sessionStorage.getItem('teacherApplication')||'{}');
-  const answers = JSON.parse(sessionStorage.getItem('testAnswers')||'{}');
-  const payload = { application: app, answers, submittedAt: new Date().toISOString() };
-  try {
-    const resp = await fetch('https://formspree.io/f/mvgqwywl', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(payload) });
-    if (resp.ok) { status.textContent='✅ Submitted successfully.'; sessionStorage.removeItem('teacherApplication'); sessionStorage.removeItem('testAnswers'); }
-    else { status.textContent='❌ Submission failed.'; status.style.color='#991b1b'; }
-  } catch (err) { console.error(err); status.textContent='❌ Network error during final submission.'; status.style.color='#991b1b'; }
-}
-
-form.addEventListener('submit', async (e)=>{ e.preventDefault(); clearInterval(interval); await submitSection(); });
+  document.getElementById('eeForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearInterval(timer);
+    let score = 0;
+    for (const q in key) {
+      const sel = document.querySelector(`input[name="${q}"]:checked`);
+      if (sel && sel.value === key[q]) score++;
+    }
+    localStorage.setItem('electricalScore', String(score));
+    window.location.href = 'application-success.html';
+  });
 </script>
 </body>
 </html>
