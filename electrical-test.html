@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Electrical/Electronics Test — 15 minutes</title>
+<style>
+  body{font-family:Arial;background:#f6f7fb;padding:12px}
+  .container{max-width:980px;margin:auto;background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,0.06)}
+  h2{margin:0}
+  .q{margin-top:12px}
+  input[type="text"]{width:100%;padding:8px;border-radius:6px;border:1px solid #cbd5e1}
+  #timer{font-weight:700;color:#0f172a}
+  button{margin-top:12px;padding:10px 14px;border-radius:8px;background:#0ea5e9;border:0;color:white;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Electrical & Electronics Test — 15 minutes</h2>
+    <div style="margin-top:8px">Time remaining: <span id="timer">15:00</span></div>
+
+    <form id="testForm">
+      <div class="q">1. R1=15Ω || R2=30Ω in parallel. Total resistance (Ω): <input name="q1" type="text" required></div>
+      <div class="q">2. 24 V battery, I=3 A. Power (W): <input name="q2" type="text" required></div>
+      <div class="q">3. 10 μF charged to 100 V. Charge (C): <input name="q3" type="text" required></div>
+      <div class="q">4. L=0.5 H, ΔI from 2 to 6 A in 0.02 s: induced EMF (V): <input name="q4" type="text" required></div>
+      <div class="q">5. 200 turns area=0.01 m², B=0.2 T reversed in 0.1 s. Avg emf (V): <input name="q5" type="text" required></div>
+      <div class="q">6. 4-pole generator at 1800 rpm. Frequency (Hz): <input name="q6" type="text" required></div>
+      <div class="q">7. Transformer 1000→200 turns, Vp=500 V. Vs (V): <input name="q7" type="text" required></div>
+      <div class="q">8. Motor draws 15 A at 240 V, efficiency 85%. Output power (W): <input name="q8" type="text" required></div>
+      <div class="q">9. Resistor temp coeff 0.004/°C, R(20)=100Ω. R(80) = <input name="q9" type="text" required></div>
+      <div class="q">10. Inductor 0.02 H carrying 5 A. Energy stored (J): <input name="q10" type="text" required></div>
+      <div class="q">11. Capacitor reactance Xc=106.1Ω at 50Hz. Capacitance (F): <input name="q11" type="text" required></div>
+      <div class="q">12. DC generator 5 kW at 250 V. Current (A): <input name="q12" type="text" required></div>
+      <div class="q">13. 20 μF charged to 200 V. Energy (J): <input name="q13" type="text" required></div>
+      <div class="q">14. Series resistors 6Ω & 4Ω on 10 V battery. Current (A): <input name="q14" type="text" required></div>
+      <div class="q">15. 230 V motor, I=10 A, pf=0.9. Input power (W): <input name="q15" type="text" required></div>
+      <div class="q">16. Inductor 0.1 H on 50 Hz. Reactance (Ω): <input name="q16" type="text" required></div>
+      <div class="q">17. 3-phase line V=415 V, I=30 A, pf=0.85. Total power (W): <input name="q17" type="text" required></div>
+      <div class="q">18. Lamp 100 W, 250 V on 200 V supply. Approx power consumed (W): <input name="q18" type="text" required></div>
+      <div class="q">19. Cable R=5Ω, I=8 A for 2 min. Heat produced (J): <input name="q19" type="text" required></div>
+      <div class="q">20. 500 W, 230 V heater for 3 hours. Energy (kWh): <input name="q20" type="text" required></div>
+
+      <button type="submit">Submit Electrical Answers</button>
+    </form>
+    <div id="status" style="margin-top:12px"></div>
+  </div>
+
+<script>
+const TEST_NAME = 'electrical';
+const TIME_LIMIT_SECONDS = 15 * 60;
+let remaining = TIME_LIMIT_SECONDS;
+const timerEl = document.getElementById('timer');
+const form = document.getElementById('testForm');
+const status = document.getElementById('status');
+
+const appRaw = sessionStorage.getItem('teacherApplication');
+if (!appRaw) { alert('No application found. Start at application page.'); window.location.href='application.html'; }
+
+function formatTime(s){ const m=Math.floor(s/60); const ss=s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`; }
+timerEl.textContent = formatTime(remaining);
+const interval = setInterval(()=>{ remaining--; timerEl.textContent = formatTime(remaining); if (remaining<=0){ clearInterval(interval); autoSubmit(); } },1000);
+
+const answersRaw = sessionStorage.getItem('testAnswers');
+let answers = answersRaw ? JSON.parse(answersRaw) : {};
+if (answers[TEST_NAME]) Object.entries(answers[TEST_NAME]).forEach(([k,v]) => { if (form.elements[k]) form.elements[k].value = v; });
+
+async function autoSubmit(){ status.textContent = 'Time up — auto-submitting...'; status.style.color='#b45309'; await submitSection(); }
+
+async function submitSection(){
+  const fd = new FormData(form);
+  const sectionAnswers = {};
+  for (const [k,v] of fd.entries()) sectionAnswers[k]=v.trim();
+  answers[TEST_NAME]=sectionAnswers;
+  sessionStorage.setItem('testAnswers', JSON.stringify(answers));
+
+  const app = JSON.parse(sessionStorage.getItem('teacherApplication')||'{}');
+  let queue = app.testsToTake || [];
+  queue = queue.slice(); queue.shift();
+  app.testsToTake = queue; sessionStorage.setItem('teacherApplication', JSON.stringify(app));
+
+  if (queue.length>0) { window.location.href = queue[0]; }
+  else { await finalSubmit(); }
+}
+
+async function finalSubmit(){
+  status.textContent = 'Submitting all answers and application...';
+  const app = JSON.parse(sessionStorage.getItem('teacherApplication')||'{}');
+  const answers = JSON.parse(sessionStorage.getItem('testAnswers')||'{}');
+  const payload = { application: app, answers, submittedAt: new Date().toISOString() };
+  try {
+    const resp = await fetch('https://formspree.io/f/mvgqwywl', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(payload) });
+    if (resp.ok) { status.textContent='✅ Submitted successfully.'; sessionStorage.removeItem('teacherApplication'); sessionStorage.removeItem('testAnswers'); }
+    else { status.textContent='❌ Submission failed.'; status.style.color='#991b1b'; }
+  } catch (err) { console.error(err); status.textContent='❌ Network error during final submission.'; status.style.color='#991b1b'; }
+}
+
+form.addEventListener('submit', async (e)=>{ e.preventDefault(); clearInterval(interval); await submitSection(); });
+</script>
+</body>
+</html>
