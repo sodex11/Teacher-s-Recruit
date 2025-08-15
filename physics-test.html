@@ -7,7 +7,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        max-width: 800px;
+        max-width: 700px;
         margin: auto;
         background: #f7f7f7;
         padding: 20px;
@@ -41,159 +41,37 @@
     button:hover {
         background: #0056b3;
     }
-    .result {
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 20px;
-    }
 </style>
 </head>
 <body>
 
 <h1>Physics Test</h1>
-<div class="timer">Time Remaining: <span id="time">15:00</span></div>
+<div class="timer">Time Remaining: <span id="time">07:00</span></div>
 
 <form id="physicsForm">
-
-    <div class="question"><p>1. A ball is thrown vertically upward with velocity 20 m/s. How long will it take to return to the thrower? (g = 10 m/s²)</p>
-        <label><input type="radio" name="q1" value="A"> 2 s</label><br>
-        <label><input type="radio" name="q1" value="B"> 4 s</label><br>
-        <label><input type="radio" name="q1" value="C"> 5 s</label><br>
-        <label><input type="radio" name="q1" value="D"> 8 s</label>
+    <!-- Example questions, replace with your 20 full physics questions -->
+    <div class="question">
+        <p>1. A car accelerates from rest at 4 m/s² for 5 seconds. What is its final velocity? (m/s)</p>
+        <label><input type="radio" name="q1" value="A"> 10</label><br>
+        <label><input type="radio" name="q1" value="B"> 15</label><br>
+        <label><input type="radio" name="q1" value="C"> 20</label><br>
+        <label><input type="radio" name="q1" value="D"> 25</label>
     </div>
 
-    <div class="question"><p>2. The unit of electric charge is?</p>
-        <label><input type="radio" name="q2" value="A"> Watt</label><br>
-        <label><input type="radio" name="q2" value="B"> Coulomb</label><br>
-        <label><input type="radio" name="q2" value="C"> Volt</label><br>
-        <label><input type="radio" name="q2" value="D"> Ohm</label>
+    <div class="question">
+        <p>2. The unit of capacitance is?</p>
+        <label><input type="radio" name="q2" value="A"> Henry</label><br>
+        <label><input type="radio" name="q2" value="B"> Farad</label><br>
+        <label><input type="radio" name="q2" value="C"> Ohm</label><br>
+        <label><input type="radio" name="q2" value="D"> Watt</label>
     </div>
 
-    <div class="question"><p>3. A force of 10 N is applied on a body of mass 2 kg. Find the acceleration.</p>
-        <label><input type="radio" name="q3" value="A"> 2 m/s²</label><br>
-        <label><input type="radio" name="q3" value="B"> 5 m/s²</label><br>
-        <label><input type="radio" name="q3" value="C"> 10 m/s²</label><br>
-        <label><input type="radio" name="q3" value="D"> 20 m/s²</label>
-    </div>
-
-    <div class="question"><p>4. The slope of a distance-time graph represents?</p>
-        <label><input type="radio" name="q4" value="A"> Acceleration</label><br>
-        <label><input type="radio" name="q4" value="B"> Velocity</label><br>
-        <label><input type="radio" name="q4" value="C"> Force</label><br>
-        <label><input type="radio" name="q4" value="D"> Momentum</label>
-    </div>
-
-    <div class="question"><p>5. Which has the highest refractive index?</p>
-        <label><input type="radio" name="q5" value="A"> Glass</label><br>
-        <label><input type="radio" name="q5" value="B"> Water</label><br>
-        <label><input type="radio" name="q5" value="C"> Diamond</label><br>
-        <label><input type="radio" name="q5" value="D"> Air</label>
-    </div>
-
-    <div class="question"><p>6. The SI unit of power is?</p>
-        <label><input type="radio" name="q6" value="A"> Joule</label><br>
-        <label><input type="radio" name="q6" value="B"> Watt</label><br>
-        <label><input type="radio" name="q6" value="C"> Newton</label><br>
-        <label><input type="radio" name="q6" value="D"> Volt</label>
-    </div>
-
-    <div class="question"><p>7. The resistance of a 2 m wire is 4 Ω. What is the resistance of 8 m of the same wire?</p>
-        <label><input type="radio" name="q7" value="A"> 4 Ω</label><br>
-        <label><input type="radio" name="q7" value="B"> 8 Ω</label><br>
-        <label><input type="radio" name="q7" value="C"> 12 Ω</label><br>
-        <label><input type="radio" name="q7" value="D"> 16 Ω</label>
-    </div>
-
-    <div class="question"><p>8. What is the acceleration due to gravity on Earth?</p>
-        <label><input type="radio" name="q8" value="A"> 8.9 m/s²</label><br>
-        <label><input type="radio" name="q8" value="B"> 9.8 m/s²</label><br>
-        <label><input type="radio" name="q8" value="C"> 10.0 m/s²</label><br>
-        <label><input type="radio" name="q8" value="D"> 9.2 m/s²</label>
-    </div>
-
-    <div class="question"><p>9. If frequency is 50 Hz, what is the period of the wave?</p>
-        <label><input type="radio" name="q9" value="A"> 0.02 s</label><br>
-        <label><input type="radio" name="q9" value="B"> 0.2 s</label><br>
-        <label><input type="radio" name="q9" value="C"> 2 s</label><br>
-        <label><input type="radio" name="q9" value="D"> 5 s</label>
-    </div>
-
-    <div class="question"><p>10. Which particle has no electric charge?</p>
-        <label><input type="radio" name="q10" value="A"> Electron</label><br>
-        <label><input type="radio" name="q10" value="B"> Proton</label><br>
-        <label><input type="radio" name="q10" value="C"> Neutron</label><br>
-        <label><input type="radio" name="q10" value="D"> Positron</label>
-    </div>
-
-    <div class="question"><p>11. The momentum of a body is given by?</p>
-        <label><input type="radio" name="q11" value="A"> mv</label><br>
-        <label><input type="radio" name="q11" value="B"> ma</label><br>
-        <label><input type="radio" name="q11" value="C"> m/g</label><br>
-        <label><input type="radio" name="q11" value="D"> v/m</label>
-    </div>
-
-    <div class="question"><p>12. In which medium does sound travel fastest?</p>
-        <label><input type="radio" name="q12" value="A"> Air</label><br>
-        <label><input type="radio" name="q12" value="B"> Water</label><br>
-        <label><input type="radio" name="q12" value="C"> Steel</label><br>
-        <label><input type="radio" name="q12" value="D"> Vacuum</label>
-    </div>
-
-    <div class="question"><p>13. The energy possessed by a body due to its motion is?</p>
-        <label><input type="radio" name="q13" value="A"> Potential energy</label><br>
-        <label><input type="radio" name="q13" value="B"> Kinetic energy</label><br>
-        <label><input type="radio" name="q13" value="C"> Thermal energy</label><br>
-        <label><input type="radio" name="q13" value="D"> Electrical energy</label>
-    </div>
-
-    <div class="question"><p>14. The SI unit of work is?</p>
-        <label><input type="radio" name="q14" value="A"> Watt</label><br>
-        <label><input type="radio" name="q14" value="B"> Newton</label><br>
-        <label><input type="radio" name="q14" value="C"> Joule</label><br>
-        <label><input type="radio" name="q14" value="D"> Pascal</label>
-    </div>
-
-    <div class="question"><p>15. Which type of lens is used to correct short-sightedness?</p>
-        <label><input type="radio" name="q15" value="A"> Convex</label><br>
-        <label><input type="radio" name="q15" value="B"> Concave</label><br>
-        <label><input type="radio" name="q15" value="C"> Cylindrical</label><br>
-        <label><input type="radio" name="q15" value="D"> Plano-convex</label>
-    </div>
-
-    <div class="question"><p>16. The time it takes for a radioactive substance to reduce to half its mass is called?</p>
-        <label><input type="radio" name="q16" value="A"> Decay time</label><br>
-        <label><input type="radio" name="q16" value="B"> Half-life</label><br>
-        <label><input type="radio" name="q16" value="C"> Life cycle</label><br>
-        <label><input type="radio" name="q16" value="D"> Period</label>
-    </div>
-
-    <div class="question"><p>17. The SI unit of electric current is?</p>
-        <label><input type="radio" name="q17" value="A"> Ampere</label><br>
-        <label><input type="radio" name="q17" value="B"> Volt</label><br>
-        <label><input type="radio" name="q17" value="C"> Ohm</label><br>
-        <label><input type="radio" name="q17" value="D"> Coulomb</label>
-    </div>
-
-    <div class="question"><p>18. The acceleration of a body in free fall is?</p>
-        <label><input type="radio" name="q18" value="A"> 9.8 m/s²</label><br>
-        <label><input type="radio" name="q18" value="B"> 10 m/s²</label><br>
-        <label><input type="radio" name="q18" value="C"> 0 m/s²</label><br>
-        <label><input type="radio" name="q18" value="D"> Depends on mass</label>
-    </div>
-
-    <div class="question"><p>19. A transformer works on which principle?</p>
-        <label><input type="radio" name="q19" value="A"> Mutual induction</label><br>
-        <label><input type="radio" name="q19" value="B"> Self induction</label><br>
-        <label><input type="radio" name="q19" value="C"> Electromagnetic force</label><br>
-        <label><input type="radio" name="q19" value="D"> Capacitance</label>
-    </div>
-
-    <div class="question"><p>20. Which law states that current is directly proportional to voltage?</p>
-        <label><input type="radio" name="q20" value="A"> Ohm's law</label><br>
-        <label><input type="radio" name="q20" value="B"> Coulomb's law</label><br>
-        <label><input type="radio" name="q20" value="C"> Newton's 2nd law</label><br>
-        <label><input type="radio" name="q20" value="D"> Faraday's law</label>
+    <div class="question">
+        <p>3. Light travels fastest in which medium?</p>
+        <label><input type="radio" name="q3" value="A"> Glass</label><br>
+        <label><input type="radio" name="q3" value="B"> Water</label><br>
+        <label><input type="radio" name="q3" value="C"> Diamond</label><br>
+        <label><input type="radio" name="q3" value="D"> Vacuum</label>
     </div>
 
     <div style="text-align:center;">
@@ -201,11 +79,9 @@
     </div>
 </form>
 
-<div id="result" class="result"></div>
-
 <script>
-    // Timer
-    let timeLeft = 15 * 60;
+    // Timer Logic (7 minutes)
+    let timeLeft = 7 * 60;
     const timerDisplay = document.getElementById("time");
     const timer = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
@@ -218,17 +94,17 @@
         }
     }, 1000);
 
-    // Correct answers (hidden from HTML)
+    // Correct answers hidden in JS
     const correctAnswers = {
-        q1: "B", q2: "B", q3: "B", q4: "B", q5: "C",
-        q6: "B", q7: "D", q8: "B", q9: "A", q10: "C",
-        q11: "A", q12: "C", q13: "B", q14: "C", q15: "B",
-        q16: "B", q17: "A", q18: "A", q19: "A", q20: "A"
+        q1: "C",
+        q2: "B",
+        q3: "D"
     };
 
     document.getElementById("physicsForm").addEventListener("submit", function(e) {
         e.preventDefault();
         clearInterval(timer);
+
         let score = 0;
         Object.keys(correctAnswers).forEach(q => {
             let answer = document.querySelector(`input[name="${q}"]:checked`);
@@ -237,14 +113,11 @@
             }
         });
 
+        // Save score for admin review
         localStorage.setItem("physicsScore", score);
 
-        let resultDiv = document.getElementById("result");
-        if (score >= 18) {
-            resultDiv.textContent = `🎉 Congratulations! You passed Physics with ${score}/20. You will be employed to teach Physics.`;
-        } else {
-            resultDiv.textContent = `We appreciate your effort, but unfortunately you scored ${score}/20 in Physics. You may retry this exam in 6 months.`;
-        }
+        // Redirect to success page without showing result
+        window.location.href = "application-success.html";
     });
 </script>
 
