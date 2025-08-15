@@ -3,160 +3,185 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Online Teacher Recruitment</title>
+  <title>Apply — Online Teacher Recruitment</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f6f7fb;
-    }
-    body::before {
+    html,body { height: 100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: #f6f7fb; color:#111; }
+    body::before{
       content: "";
       position: fixed;
       inset: 0;
       background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1600&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
-      opacity: 0.1;
+      opacity: 0.10;
       z-index: -1;
+      filter: blur(0.5px);
     }
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: rgba(255,255,255,0.96);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    }
-    h1 { font-size: 22px; margin-bottom: 15px; }
-    form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
+    .container { max-width: 980px; margin: 36px auto; padding: 28px; background: rgba(255,255,255,0.96); border-radius: 12px; box-shadow: 0 10px 30px rgba(10,10,20,0.08); }
+    header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+    .logo { width:72px; height:72px; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#06b6d4); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:20px;}
+    h1 { font-size:20px; }
+    p.lead { color: #334155; margin-top:6px; }
+    form { display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:18px; }
     .full { grid-column: 1 / -1; }
-    label { font-size: 14px; margin-bottom: 5px; display: block; }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
+    label { display:block; font-size:13px; margin-bottom:6px; color:#0f172a; }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea, input[type="number"] {
+      width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;
     }
-    textarea { resize: vertical; min-height: 100px; }
-    button {
-      padding: 10px;
-      border: none;
-      background: #0ea5e9;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .status {
-      margin-top: 10px;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 14px;
-      display: none;
-    }
-    .success { background: #d1fae5; color: #065f46; }
-    .error { background: #fee2e2; color: #991b1b; }
-    @media (max-width: 768px) {
+    textarea { min-height:120px; resize:vertical; }
+    .row { display:flex; gap:12px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:10px; background:#0ea5e9; color:white; font-weight:600; border:0; cursor:pointer; }
+    .btn.secondary { background:#94a3b8; }
+    .status { padding:10px 12px; border-radius:8px; margin-top:8px; display:none; }
+    .status.success { background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0; display:block; }
+    .status.error { background:#fff7f7; color:#7f1d1d; border:1px solid #fecaca; display:block; }
+    footer { margin-top:18px; font-size:13px; color:#475569; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    @media (max-width:800px){
       form { grid-template-columns: 1fr; }
+      .logo { width:56px; height:56px; font-size:18px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Online Teacher Recruitment Form</h1>
+  <div class="container" role="main">
+    <header>
+      <div class="logo">EDU</div>
+      <div>
+        <h1>Recruit Online Teachers</h1>
+        <p class="lead">Please provide your details — qualifications, subjects, availability, and more.</p>
+      </div>
+    </header>
 
     <form id="applicationForm" novalidate>
+      <!-- Left column -->
       <div>
-        <label>Full Name *</label>
-        <input type="text" name="fullName" required>
+        <label for="fullName">Full name *</label>
+        <input id="fullName" name="fullName" type="text" required placeholder="e.g. Mary Johnson" />
+
+        <label for="email" style="margin-top:12px;">Email *</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
+        <label for="phone" style="margin-top:12px;">Phone number *</label>
+        <input id="phone" name="phone" type="tel" required placeholder="+234 801 234 5678" />
+
+        <label for="subjects" style="margin-top:12px;">Subjects / Topics *</label>
+        <input id="subjects" name="subjects" type="text" required placeholder="e.g. A-Level Maths, Physics, Electronics" />
+
+        <label for="hourlyRate" style="margin-top:12px;">Suggested hourly rate (optional)</label>
+        <input id="hourlyRate" name="hourlyRate" type="number" min="0" step="0.5" placeholder="e.g. 2.50 (USD/hour)" />
       </div>
+
+      <!-- Right column -->
       <div>
-        <label>Email *</label>
-        <input type="email" name="email" required>
-      </div>
-      <div>
-        <label>Phone Number *</label>
-        <input type="tel" name="phone" required>
-      </div>
-      <div>
-        <label>Subjects *</label>
-        <input type="text" name="subjects" required>
-      </div>
-      <div>
-        <label>Qualification *</label>
-        <select name="qualification" required>
-          <option value="">Select</option>
+        <label for="qualification">Highest qualification *</label>
+        <select id="qualification" name="qualification" required>
+          <option value="">Select qualification</option>
           <option>PhD</option>
           <option>Masters</option>
           <option>Bachelors</option>
-          <option>Diploma</option>
+          <option>HND / Diploma</option>
+          <option>Professional Certificate</option>
           <option>Other</option>
         </select>
+
+        <label for="experience" style="margin-top:12px;">Years of teaching experience *</label>
+        <input id="experience" name="experience" type="number" min="0" required placeholder="e.g. 3" />
+
+        <label for="availability" style="margin-top:12px;">Availability (days & times) *</label>
+        <input id="availability" name="availability" type="text" required placeholder="e.g. Mon-Fri 5pm-9pm / Weekends 9am-2pm" />
+
+        <label for="language" style="margin-top:12px;">Languages spoken</label>
+        <input id="language" name="language" type="text" placeholder="English, Yoruba, Hausa..." />
       </div>
-      <div>
-        <label>Experience (years) *</label>
-        <input type="number" name="experience" min="0" required>
-      </div>
+
+      <!-- Full width -->
       <div class="full">
-        <label>Short Bio *</label>
-        <textarea name="bio" required></textarea>
-      </div>
-      <div class="full">
-        <label>Upload CV (PDF/DOC) *</label>
-        <input type="file" name="cv" accept=".pdf,.doc,.docx">
-      </div>
-      <div class="full">
-        <button type="submit">Submit Application</button>
-        <div id="statusMessage" class="status"></div>
+        <label for="bio">Short bio / teaching approach *</label>
+        <textarea id="bio" name="bio" required placeholder="Tell us briefly about your teaching approach."></textarea>
+
+        <div class="row" style="margin-top:12px;">
+          <button class="btn" type="submit">Submit application</button>
+          <button class="btn secondary" type="button" id="clearBtn">Clear form</button>
+        </div>
+
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
       </div>
     </form>
+
+    <footer>
+      <div style="opacity:0.85">Built for quick teacher intake — no frills.</div>
+    </footer>
   </div>
 
   <script>
+    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl';
     const form = document.getElementById('applicationForm');
-    const statusMessage = document.getElementById('statusMessage');
-    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // your endpoint
+    const status = document.getElementById('statusMessage');
+    const clearBtn = document.getElementById('clearBtn');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    function showStatus(message, type='success') {
+      status.textContent = message;
+      status.className = 'status ' + (type === 'error' ? 'error' : 'success');
+    }
 
-      statusMessage.style.display = 'block';
-      statusMessage.textContent = 'Sending...';
-      statusMessage.className = 'status';
+    function clearStatus() {
+      status.style.display = 'none';
+      status.textContent = '';
+    }
 
-      const formData = new FormData(form);
-
-      // For free plan — do NOT send file, only send filename
-      const fileInput = form.querySelector('input[name="cv"]');
-      if (fileInput.files.length > 0) {
-        formData.delete('cv'); // remove actual file
-        formData.append('cv_filename', fileInput.files[0].name);
+    function validateForm() {
+      const required = form.querySelectorAll('[required]');
+      for (const el of required) {
+        if (!el.value) {
+          el.focus();
+          return { ok: false, message: 'Please fill all required fields.' };
+        }
       }
+      const email = form.querySelector('input[type="email"]').value.trim();
+      if (!/^\S+@\S+\.\S+$/.test(email)) return { ok: false, message: 'Please enter a valid email address.' };
+      return { ok: true };
+    }
 
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      clearStatus();
+      const v = validateForm();
+      if (!v.ok) { showStatus(v.message, 'error'); return; }
+
+      const formData = new FormData();
+      formData.append('fullName', form.fullName.value.trim());
+      formData.append('email', form.email.value.trim());
+      formData.append('phone', form.phone.value.trim());
+      formData.append('subjects', form.subjects.value.trim());
+      formData.append('hourlyRate', form.hourlyRate.value.trim());
+      formData.append('qualification', form.qualification.value);
+      formData.append('experience', form.experience.value);
+      formData.append('availability', form.availability.value.trim());
+      formData.append('language', form.language.value.trim());
+      formData.append('bio', form.bio.value.trim());
+
+      showStatus('Submitting application — please wait...');
       try {
-        const response = await fetch(FORMSPREE_URL, {
-          method: 'POST',
-          body: formData
-        });
-
-        if (response.ok) {
-          statusMessage.textContent = '✅ Application sent successfully!';
-          statusMessage.className = 'status success';
+        const resp = await fetch(FORMSPREE_URL, { method: 'POST', body: formData });
+        if (resp.ok) {
+          showStatus('Application submitted successfully.', 'success');
           form.reset();
         } else {
-          const errorData = await response.json().catch(() => ({}));
-          statusMessage.textContent = '❌ Failed to send application. ' + (errorData.error || '');
-          statusMessage.className = 'status error';
+          let errText = 'Submission failed. Try again later.';
+          try { const body = await resp.json(); if (body.error) errText = body.error; } catch (_) {}
+          showStatus(errText, 'error');
         }
-      } catch (error) {
-        statusMessage.textContent = '❌ Network error — please try again.';
-        statusMessage.className = 'status error';
+      } catch (err) {
+        console.error(err);
+        showStatus('Network error. Check your connection and try again.', 'error');
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (confirm('Clear all form fields?')) {
+        form.reset();
+        clearStatus();
       }
     });
   </script>
