@@ -1,191 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Teacher Recruitment Form</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Apply — Online Teacher Recruitment</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: auto;
-    background: #f8f8f8;
-    padding: 20px;
-  }
-  label { font-weight: bold; display: block; margin-top: 10px; }
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 4px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  button {
-    margin-top: 15px;
-    background: green;
-    color: white;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 6px;
-  }
-  button:hover { background: darkgreen; }
-  .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 6px;
-  }
-  .checkbox-group label {
-    font-weight: normal;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 6px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-  }
-  .checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-  }
-  #message {
-    margin-top: 15px;
-    padding: 10px;
-    display: none;
-    border-radius: 6px;
-  }
-  #message.success { background: #d1fae5; color: #065f46; }
-  #message.error { background: #fee2e2; color: #991b1b; }
+  /* Minimal theme consistent with earlier design */
+  body { font-family: Arial, sans-serif; background:#f6f7fb; padding:20px; }
+  .container { max-width:980px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.06); }
+  label { display:block; margin-top:12px; font-weight:600; color:#0f172a; }
+  input, select, textarea { width:100%; padding:10px; margin-top:6px; border-radius:8px; border:1px solid #cbd5e1; }
+  .checkbox-group { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+  .checkbox-group label { background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:8px 12px; cursor:pointer; display:flex; align-items:center; gap:8px; }
+  button { margin-top:14px; padding:10px 16px; background:#0ea5e9; color:#fff; border:0; border-radius:8px; cursor:pointer; font-weight:700; }
+  .note { font-size:13px; color:#475569; margin-top:8px; }
 </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Teacher Application</h2>
 
-<h2>Teacher Recruitment Form</h2>
-<form id="teacherForm">
-  <label>Full Name *</label>
-  <input type="text" name="name" required>
+    <form id="appForm" novalidate>
+      <label>Full name *</label>
+      <input name="fullName" id="fullName" type="text" required placeholder="e.g. Mary Johnson">
 
-  <label>Email *</label>
-  <input type="email" name="email" required>
+      <label>Email *</label>
+      <input name="email" id="email" type="email" required>
 
-  <label>Phone Number *</label>
-  <input type="tel" name="phone" required>
+      <label>Phone number *</label>
+      <input name="phone" id="phone" type="tel" required>
 
-  <label>Type of School Graduated From *</label>
-  <select name="schoolType" id="schoolType" required>
-    <option value="">-- Select --</option>
-    <option value="University">University</option>
-    <option value="Polytechnic">Polytechnic</option>
-  </select>
+      <label>Type of school graduated from *</label>
+      <select id="schoolType" name="schoolType" required>
+        <option value="">Select school type</option>
+        <option value="University">University</option>
+        <option value="Polytechnic">Polytechnic</option>
+        <option value="College of Education">College of Education</option>
+        <option value="Other">Other</option>
+      </select>
+      <input id="otherSchool" name="otherSchool" placeholder="Specify other school" style="display:none; margin-top:8px;">
 
-  <label>School Name *</label>
-  <input type="text" name="schoolName" required>
+      <label>School name *</label>
+      <input id="schoolName" name="schoolName" type="text" required>
 
-  <label>Grade *</label>
-  <select name="grade" id="grade" required>
-    <option value="">-- Select Grade --</option>
-  </select>
+      <label>Degree grade *</label>
+      <select id="grade" name="grade" required><option value="">Select grade</option></select>
 
-  <label>Subjects you can teach *</label>
-  <div class="checkbox-group" id="subjectsList">
-    <label><input type="checkbox" value="Mathematics"> Mathematics</label>
-    <label><input type="checkbox" value="Physics"> Physics</label>
-    <label><input type="checkbox" value="Engineering"> Engineering</label>
-    <label><input type="checkbox" value="Further Mathematics"> Further Mathematics</label>
-    <label><input type="checkbox" value="Other"> Other</label>
+      <label>Subjects you can teach *</label>
+      <div class="checkbox-group" id="subjectsList">
+        <label><input type="checkbox" value="Physics">Physics</label>
+        <label><input type="checkbox" value="Mathematics">Mathematics</label>
+        <label><input type="checkbox" value="Engineering">Engineering</label>
+        <label><input type="checkbox" value="Further Mathematics">Further Mathematics</label>
+        <label><input type="checkbox" value="Other">Other</label>
+      </div>
+      <input id="otherSubject" name="otherSubject" placeholder="Specify other subject" style="display:none; margin-top:8px;">
+
+      <label>Fee per hour (₦) *</label>
+      <input id="fee" name="fee" type="number" min="2000" max="4000" required>
+
+      <label>Short bio *</label>
+      <textarea id="bio" name="bio" required placeholder="Briefly describe your approach (one or two lines)"></textarea>
+
+      <div class="note">Pick the subjects you will take a test in. After submitting application you'll be directed to the timed test(s). Each section is 15 minutes.</div>
+
+      <button type="submit">Submit Application & Start Tests</button>
+    </form>
   </div>
-  <input id="otherSubject" type="text" placeholder="Specify other subject" style="display:none; margin-top:6px;">
-
-  <input type="hidden" name="subjects" id="subjectsInput" required>
-
-  <label>Fee per hour (₦) *</label>
-  <input type="number" name="fee" min="2000" max="4000" required>
-
-  <label>CV (filename only for now) *</label>
-  <input type="text" name="cv" placeholder="Enter CV filename" required>
-
-  <button type="submit">Submit Application</button>
-  <div id="message"></div>
-</form>
 
 <script>
-  const gradeSelect = document.getElementById('grade');
-  const schoolType = document.getElementById('schoolType');
-  const checkboxes = document.querySelectorAll('#subjectsList input[type="checkbox"]');
-  const otherInput = document.getElementById('otherSubject');
-  const subjectsInput = document.getElementById('subjectsInput');
-  const form = document.getElementById('teacherForm');
-  const message = document.getElementById('message');
+const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // final POST happens after tests
 
-  // School type change → update grade options
-  schoolType.addEventListener('change', () => {
-    gradeSelect.innerHTML = '<option value="">-- Select Grade --</option>';
-    if (schoolType.value === 'University') {
-      ['First Class', 'Second Class Upper', 'Second Class Lower', 'Third Class'].forEach(g => {
-        gradeSelect.innerHTML += `<option value="${g}">${g}</option>`;
-      });
-    } else if (schoolType.value === 'Polytechnic') {
-      ['Distinction', 'Upper Credit', 'Lower Credit'].forEach(g => {
-        gradeSelect.innerHTML += `<option value="${g}">${g}</option>`;
-      });
-    }
-  });
+// Elements
+const form = document.getElementById('appForm');
+const schoolType = document.getElementById('schoolType');
+const otherSchool = document.getElementById('otherSchool');
+const grade = document.getElementById('grade');
+const subjectsList = document.getElementById('subjectsList');
+const otherSubject = document.getElementById('otherSubject');
 
-  // Show/hide "Other" subject input
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.value === 'Other') {
-        otherInput.style.display = cb.checked ? 'block' : 'none';
-      }
-      updateSubjects();
-    });
-  });
-  otherInput.addEventListener('input', updateSubjects);
+// Grades mapping
+const gradesBySchool = {
+  University: ["First Class","Second Class Upper","Second Class Lower","Third Class"],
+  Polytechnic: ["Distinction","Upper Credit","Lower Credit","Pass"],
+  "College of Education": ["Distinction","Credit","Pass"],
+  Other: []
+};
 
-  // Collect subjects into hidden field
-  function updateSubjects() {
-    let selected = Array.from(checkboxes)
-      .filter(c => c.checked)
-      .map(c => c.value);
-    if (selected.includes('Other') && otherInput.value.trim()) {
-      selected[selected.indexOf('Other')] = `Other: ${otherInput.value.trim()}`;
-    }
-    subjectsInput.value = selected.join(', ');
+schoolType.addEventListener('change', () => {
+  otherSchool.style.display = schoolType.value === 'Other' ? 'block' : 'none';
+  grade.innerHTML = '<option value="">Select grade</option>';
+  const arr = gradesBySchool[schoolType.value] || [];
+  arr.forEach(g => { const o = document.createElement('option'); o.value = g; o.textContent = g; grade.appendChild(o); });
+});
+
+subjectsList.addEventListener('change', () => {
+  // no-op but keep for future
+});
+
+// Show otherSubject if checkbox Other checked
+subjectsList.addEventListener('click', (ev) => {
+  if (ev.target && ev.target.type === 'checkbox') {
+    const cb = ev.target;
+    if (cb.value === 'Other') otherSubject.style.display = cb.checked ? 'block' : 'none';
   }
+});
 
-  // Form submission
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    updateSubjects();
+// On submit: validate minimal, gather selected subjects, store application + test order in sessionStorage, redirect to first test page
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-    try {
-      const formData = new FormData(form);
-      const res = await fetch("https://formspree.io/f/mvgqwywl", {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
+  // simple validation
+  const required = ['fullName','email','phone','schoolName','fee','bio'];
+  for (const id of required) {
+    const el = document.getElementById(id) || document.querySelector(`[name="${id}"]`);
+    if (!el || !el.value.trim()) { alert('Please fill all required fields.'); el && el.focus(); return; }
+  }
+  if (!grade.value) { alert('Please select your degree grade'); grade.focus(); return; }
 
-      if (res.ok) {
-        message.textContent = "✅ Application sent successfully!";
-        message.className = "success";
-        message.style.display = "block";
-        form.reset();
-        subjectsInput.value = "";
-        otherInput.style.display = "none";
-      } else {
-        throw new Error("Form submission failed");
-      }
-    } catch (err) {
-      message.textContent = "❌ Error sending application. Please try again.";
-      message.className = "error";
-      message.style.display = "block";
-    }
-  });
+  // collect selected subjects
+  const checkedBoxes = Array.from(subjectsList.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+  if (checkedBoxes.length === 0) { alert('Please pick at least one subject.'); return; }
+
+  // Map subjects to test pages (we will use: Physics -> physics-test.html, Mathematics -> maths-test.html, Engineering/Further Mathematics -> electrical-test.html)
+  const pages = [];
+  if (checkedBoxes.includes('Physics')) pages.push('physics-test.html');
+  if (checkedBoxes.includes('Mathematics') || checkedBoxes.includes('Further Mathematics')) pages.push('maths-test.html');
+  if (checkedBoxes.includes('Engineering')) pages.push('electrical-test.html');
+
+  // Prepare application object
+  const app = {
+    fullName: document.getElementById('fullName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    schoolType: schoolType.value,
+    otherSchool: otherSchool.value.trim(),
+    schoolName: document.getElementById('schoolName').value.trim(),
+    grade: grade.value,
+    subjectsPicked: checkedBoxes,
+    otherSubject: otherSubject.value.trim(),
+    fee: document.getElementById('fee').value,
+    bio: document.getElementById('bio').value.trim(),
+    testsToTake: pages // queue of tests
+  };
+
+  // save to sessionStorage
+  sessionStorage.setItem('teacherApplication', JSON.stringify(app));
+  sessionStorage.removeItem('testAnswers'); // clear any previous
+  sessionStorage.setItem('testAnswers', JSON.stringify({})); // holder
+
+  // navigate to first page in list
+  const first = pages[0];
+  if (!first) {
+    alert('No tests assigned for the selected subjects.');
+    return;
+  }
+  window.location.href = first;
+});
 </script>
-
 </body>
 </html>
