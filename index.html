@@ -1,186 +1,189 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Apply — Online Teacher Recruitment</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f6f7fb; color:#111; }
-    .container { max-width: 980px; margin: 36px auto; padding: 28px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);}
-    form { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
-    .full { grid-column: 1 / -1; }
-    label { display:block; font-size:13px; margin-bottom:6px; color:#0f172a; }
-    input, select, textarea {
-      width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; background:#fff;
-    }
-    textarea { min-height:120px; resize:vertical; }
-    .btn { padding:10px 16px; border-radius:10px; background:#0ea5e9; color:white; font-weight:600; border:0; cursor:pointer; }
-    .btn.secondary { background:#94a3b8; }
-    .status { padding:10px 12px; border-radius:8px; margin-top:8px; display:none; }
-    .status.success { background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0; display:block; }
-    .status.error { background:#fff7f7; color:#7f1d1d; border:1px solid #fecaca; display:block; }
-  </style>
+<meta charset="UTF-8">
+<title>Teacher Recruitment Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    margin: auto;
+    background: #f8f8f8;
+    padding: 20px;
+  }
+  label { font-weight: bold; display: block; margin-top: 10px; }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  button {
+    margin-top: 15px;
+    background: green;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+  }
+  button:hover { background: darkgreen; }
+  .subjects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .subject-card {
+    background: #f87171;
+    color: white;
+    font-weight: bold;
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    flex: 1 1 calc(50% - 10px);
+    min-width: 120px;
+    transition: background 0.2s ease;
+    text-align: center;
+  }
+  .subject-card.selected { background: #dc2626; }
+  #message {
+    margin-top: 15px;
+    padding: 10px;
+    display: none;
+    border-radius: 6px;
+  }
+  #message.success { background: #d1fae5; color: #065f46; }
+  #message.error { background: #fee2e2; color: #991b1b; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Recruit Online Teachers</h1>
 
-    <form id="applicationForm" novalidate>
-      <div>
-        <label>Full name *</label>
-        <input name="fullName" type="text" required>
+<h2>Teacher Recruitment Form</h2>
+<form id="teacherForm">
+  <label>Full Name *</label>
+  <input type="text" name="name" required>
 
-        <label style="margin-top:12px;">Email *</label>
-        <input name="email" type="email" required>
+  <label>Email *</label>
+  <input type="email" name="email" required>
 
-        <label style="margin-top:12px;">Phone number *</label>
-        <input name="phone" type="tel" required>
+  <label>Phone Number *</label>
+  <input type="tel" name="phone" required>
 
-        <label style="margin-top:12px;">School graduated from *</label>
-        <select id="schoolType" name="schoolType" required>
-          <option value="">Select school type</option>
-          <option value="University">University</option>
-          <option value="Polytechnic">Polytechnic</option>
-          <option value="College of Education">College of Education</option>
-          <option value="Other">Other</option>
-        </select>
-        <input id="otherSchool" name="otherSchool" type="text" placeholder="Specify other school" style="margin-top:8px; display:none;">
+  <label>Type of School Graduated From *</label>
+  <select name="schoolType" id="schoolType" required>
+    <option value="">-- Select --</option>
+    <option value="University">University</option>
+    <option value="Polytechnic">Polytechnic</option>
+  </select>
 
-        <label style="margin-top:12px;">Degree grade *</label>
-        <select id="grade" name="grade" required>
-          <option value="">Select grade</option>
-        </select>
-      </div>
+  <label>School Name *</label>
+  <input type="text" name="schoolName" required>
 
-      <div>
-        <label>Subjects you can teach *</label>
-        <select id="subjects" name="subjects" multiple required>
-          <option value="Mathematics">Mathematics</option>
-          <option value="Physics">Physics</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Other">Other</option>
-        </select>
-        <input id="otherSubject" name="otherSubject" type="text" placeholder="Specify other subject" style="margin-top:8px; display:none;">
+  <label>Grade *</label>
+  <select name="grade" id="grade" required>
+    <option value="">-- Select Grade --</option>
+  </select>
 
-        <label style="margin-top:12px;">Hourly rate (₦) *</label>
-        <input name="hourlyRate" type="number" min="2000" max="4000" step="100" required>
-
-        <label style="margin-top:12px;">Highest qualification *</label>
-        <select name="qualification" required>
-          <option value="">Select qualification</option>
-          <option>PhD</option>
-          <option>Masters</option>
-          <option>Bachelors</option>
-          <option>HND / Diploma</option>
-          <option>Professional Certificate</option>
-          <option>Other</option>
-        </select>
-
-        <label style="margin-top:12px;">Years of teaching experience *</label>
-        <input name="experience" type="number" min="0" required>
-      </div>
-
-      <div class="full">
-        <label>Availability (days & times) *</label>
-        <input name="availability" type="text" required>
-
-        <label style="margin-top:12px;">Languages spoken</label>
-        <input name="language" type="text">
-
-        <label style="margin-top:12px;">Short bio / teaching approach *</label>
-        <textarea name="bio" required></textarea>
-
-        <div style="margin-top:12px;">
-          <button class="btn" type="submit">Submit application</button>
-          <button class="btn secondary" type="button" id="clearBtn">Clear form</button>
-        </div>
-
-        <div id="statusMessage" class="status"></div>
-      </div>
-    </form>
+  <label>Subjects you can teach *</label>
+  <div class="subjects-container" id="subjectsList">
+    <div class="subject-card" data-value="Mathematics">Mathematics</div>
+    <div class="subject-card" data-value="Physics">Physics</div>
+    <div class="subject-card" data-value="Engineering">Engineering</div>
+    <div class="subject-card" data-value="Further Mathematics">Further Mathematics</div>
+    <div class="subject-card" data-value="Other">Other</div>
   </div>
 
-  <script>
-    const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl';
-    const form = document.getElementById('applicationForm');
-    const status = document.getElementById('statusMessage');
-    const subjectsSelect = document.getElementById('subjects');
-    const otherSubjectInput = document.getElementById('otherSubject');
-    const schoolSelect = document.getElementById('schoolType');
-    const otherSchoolInput = document.getElementById('otherSchool');
-    const gradeSelect = document.getElementById('grade');
+  <input id="otherSubject" type="text" placeholder="Specify other subject" style="margin-top:8px; display:none;">
+  <input type="hidden" name="subjects" id="subjectsInput" required>
 
-    const gradesBySchool = {
-      University: ["First Class", "Second Class Upper", "Second Class Lower", "Third Class"],
-      Polytechnic: ["Distinction", "Upper Credit", "Lower Credit", "Pass"],
-      "College of Education": ["Distinction", "Credit", "Pass"],
-      Other: []
-    };
+  <label>Fee per hour (₦) *</label>
+  <input type="number" name="fee" min="2000" max="4000" required>
 
-    schoolSelect.addEventListener('change', () => {
-      otherSchoolInput.style.display = schoolSelect.value === 'Other' ? 'block' : 'none';
-      gradeSelect.innerHTML = '<option value="">Select grade</option>';
-      if (gradesBySchool[schoolSelect.value]) {
-        gradesBySchool[schoolSelect.value].forEach(g => {
-          const opt = document.createElement('option');
-          opt.value = g;
-          opt.textContent = g;
-          gradeSelect.appendChild(opt);
-        });
-      }
-    });
+  <label>CV (filename only for now) *</label>
+  <input type="text" name="cv" placeholder="Enter CV filename" required>
 
-    subjectsSelect.addEventListener('change', () => {
-      const selected = Array.from(subjectsSelect.selectedOptions).map(o => o.value);
-      otherSubjectInput.style.display = selected.includes('Other') ? 'block' : 'none';
-    });
+  <button type="submit">Submit Application</button>
+  <div id="message"></div>
+</form>
 
-    function showStatus(message, type='success') {
-      status.textContent = message;
-      status.className = 'status ' + (type === 'error' ? 'error' : 'success');
+<script>
+  const gradeSelect = document.getElementById('grade');
+  const schoolType = document.getElementById('schoolType');
+  const subjectCards = document.querySelectorAll('.subject-card');
+  const otherInput = document.getElementById('otherSubject');
+  const subjectsInput = document.getElementById('subjectsInput');
+  const form = document.getElementById('teacherForm');
+  const message = document.getElementById('message');
+
+  // School type change → update grade options
+  schoolType.addEventListener('change', () => {
+    gradeSelect.innerHTML = '<option value="">-- Select Grade --</option>';
+    if (schoolType.value === 'University') {
+      ['First Class', 'Second Class Upper', 'Second Class Lower', 'Third Class'].forEach(g => {
+        gradeSelect.innerHTML += `<option value="${g}">${g}</option>`;
+      });
+    } else if (schoolType.value === 'Polytechnic') {
+      ['Distinction', 'Upper Credit', 'Lower Credit'].forEach(g => {
+        gradeSelect.innerHTML += `<option value="${g}">${g}</option>`;
+      });
     }
+  });
 
-    function clearStatus() {
-      status.style.display = 'none';
-      status.textContent = '';
-    }
-
-    form.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      clearStatus();
-
-      const required = form.querySelectorAll('[required]');
-      for (const el of required) {
-        if (!el.value) { el.focus(); showStatus('Please fill all required fields.', 'error'); return; }
+  // Subject selection logic
+  subjectCards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('selected');
+      if (card.dataset.value === 'Other') {
+        otherInput.style.display = card.classList.contains('selected') ? 'block' : 'none';
       }
+      updateSubjects();
+    });
+  });
+  otherInput.addEventListener('input', updateSubjects);
 
+  function updateSubjects() {
+    let selected = Array.from(subjectCards)
+      .filter(c => c.classList.contains('selected'))
+      .map(c => c.dataset.value);
+    if (selected.includes('Other') && otherInput.value.trim()) {
+      selected[selected.indexOf('Other')] = `Other: ${otherInput.value.trim()}`;
+    }
+    subjectsInput.value = selected.join(', ');
+  }
+
+  // Form submission
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    updateSubjects(); // make sure latest is saved
+
+    try {
       const formData = new FormData(form);
-      formData.set('subjects', Array.from(subjectsSelect.selectedOptions).map(o => o.value).join(', '));
+      const res = await fetch("https://formspree.io/f/mvgqwywl", {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
 
-      try {
-        const resp = await fetch(FORMSPREE_URL, { method: 'POST', body: formData });
-        if (resp.ok) {
-          showStatus('Application submitted successfully.', 'success');
-          form.reset();
-          otherSubjectInput.style.display = 'none';
-          otherSchoolInput.style.display = 'none';
-          gradeSelect.innerHTML = '<option value="">Select grade</option>';
-        } else {
-          showStatus('Submission failed. Try again later.', 'error');
-        }
-      } catch {
-        showStatus('Network error. Check your connection.', 'error');
+      if (res.ok) {
+        message.textContent = "✅ Application sent successfully!";
+        message.className = "success";
+        message.style.display = "block";
+        form.reset();
+        subjectsInput.value = "";
+        otherInput.style.display = "none";
+        subjectCards.forEach(c => c.classList.remove('selected'));
+      } else {
+        throw new Error("Form submission failed");
       }
-    });
+    } catch (err) {
+      message.textContent = "❌ Error sending application. Please try again.";
+      message.className = "error";
+      message.style.display = "block";
+    }
+  });
+</script>
 
-    document.getElementById('clearBtn').addEventListener('click', () => {
-      form.reset();
-      clearStatus();
-      otherSubjectInput.style.display = 'none';
-      otherSchoolInput.style.display = 'none';
-      gradeSelect.innerHTML = '<option value="">Select grade</option>';
-    });
-  </script>
 </body>
 </html>
