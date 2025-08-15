@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Physics Test — 15 minutes</title>
+<style>
+  body{font-family:Arial;background:#f6f7fb;padding:12px}
+  .container{max-width:980px;margin:auto;background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,0.06)}
+  h2{margin:0}
+  .note{color:#b91c1c;font-weight:700;margin-top:8px}
+  .q{margin-top:14px}
+  input[type="text"]{width:100%;padding:8px;border-radius:6px;border:1px solid #cbd5e1}
+  #timer{font-weight:700;color:#0f172a}
+  button{margin-top:12px;padding:10px 14px;border-radius:8px;background:#0ea5e9;border:0;color:white;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Physics Test — 15 minutes</h2>
+    <div class="note">Include units where applicable. Answers should be numeric only (include units). Timer starts now.</div>
+    <div style="margin-top:8px">Time remaining: <span id="timer">15:00</span></div>
+
+    <form id="testForm">
+      <!-- 20 physics numerical questions (tough) -->
+      <!-- Each question uses a single text input for the numeric answer + unit -->
+      <div class="q">1. Projectile: angle 30°, speed 50 m/s. Total time of flight (s): <input name="q1" type="text" required></div>
+      <div class="q">2. 1200 kg car at 25 m/s, deceleration 5.0 m/s². Stopping distance (m): <input name="q2" type="text" required></div>
+      <div class="q">3. Wavelength 0.75 m, speed 343 m/s. Frequency (Hz): <input name="q3" type="text" required></div>
+      <div class="q">4. Wire resistance 4.0 Ω doubled length (same volume). New resistance (Ω): <input name="q4" type="text" required></div>
+      <div class="q">5. Lift mass 800 kg rising at 3.0 m/s. Motor power (W): <input name="q5" type="text" required></div>
+      <div class="q">6. Mass 0.50 kg, frequency 2.0 Hz, spring constant (N/m): <input name="q6" type="text" required></div>
+      <div class="q">7. 100 W bulb at 230 V. Filament resistance (Ω): <input name="q7" type="text" required></div>
+      <div class="q">8. Liquid density 1200 kg/m³, height 0.5 m. Pressure at base (Pa): <input name="q8" type="text" required></div>
+      <div class="q">9. Ball mass 0.5 kg falls from 20 m with 2.0 N resistive force. Final speed (m/s): <input name="q9" type="text" required></div>
+      <div class="q">10. Escape velocity for planet R=6.0×10⁶ m, M=4.0×10²⁴ kg (m/s): <input name="q10" type="text" required></div>
+      <div class="q">11. Transformer 11 kV → 220 V, primary turns 1500. Secondary turns: <input name="q11" type="text" required></div>
+      <div class="q">12. Steel rod 2.0 m heated 25→75 °C, α=1.2×10⁻⁵ K⁻¹. ΔL (m): <input name="q12" type="text" required></div>
+      <div class="q">13. Wave y=0.02 sin(4πt - 0.02πx). Wavelength (m): <input name="q13" type="text" required></div>
+      <div class="q">14. Satellite altitude = Earth radius above surface. Orbital speed (m/s): <input name="q14" type="text" required></div>
+      <div class="q">15. Drop 20 m, rebound to 15 m. Coefficient of restitution: <input name="q15" type="text" required></div>
+      <div class="q">16. 2.0 μF series with 4.0 μF on 12 V. Voltage across 4.0 μF (V): <input name="q16" type="text" required></div>
+      <div class="q">17. Tyre radius 0.3 m, speed 90 km/h. Angular velocity (rad/s): <input name="q17" type="text" required></div>
+      <div class="q">18. Pump lifts 500 L/min (density 1000 kg/m³) through 15 m. Power (W): <input name="q18" type="text" required></div>
+      <div class="q">19. Concave mirror radius 40 cm. Focal length (cm): <input name="q19" type="text" required></div>
+      <div class="q">20. 1.5 m string fundamental frequency 120 Hz. Wave speed (m/s): <input name="q20" type="text" required></div>
+
+      <button type="submit">Submit Physics Answers</button>
+    </form>
+    <div id="status" style="margin-top:12px"></div>
+  </div>
+
+<script>
+const TEST_NAME = 'physics';
+const TIME_LIMIT_SECONDS = 15 * 60; // 15 minutes
+let remaining = TIME_LIMIT_SECONDS;
+const timerEl = document.getElementById('timer');
+const form = document.getElementById('testForm');
+const status = document.getElementById('status');
+
+// initialize app/test info
+const appRaw = sessionStorage.getItem('teacherApplication');
+if (!appRaw) { alert('No application data found. Start from application page.'); window.location.href = 'application.html'; }
+const app = JSON.parse(appRaw);
+
+// countdown
+function formatTime(s) { const m = Math.floor(s/60); const ss = s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`; }
+timerEl.textContent = formatTime(remaining);
+const interval = setInterval(() => {
+  remaining--;
+  timerEl.textContent = formatTime(remaining);
+  if (remaining <= 0) { clearInterval(interval); autoSubmit(); }
+}, 1000);
+
+// load previous answers if any
+const answersRaw = sessionStorage.getItem('testAnswers');
+let answers = answersRaw ? JSON.parse(answersRaw) : {};
+
+// attempt to restore previously typed answers for this test
+if (answers[TEST_NAME]) {
+  Object.entries(answers[TEST_NAME]).forEach(([k,v]) => {
+    const el = form.elements[k];
+    if (el) el.value = v;
+  });
+}
+
+// auto-submit function
+async function autoSubmit() {
+  status.textContent = 'Time up — auto-submitting section...';
+  status.style.color = '#b45309';
+  await submitSection();
+}
+
+// submit section: save answers to sessionStorage, then go to next test or final submit
+async function submitSection() {
+  // collect answers of this form
+  const formData = new FormData(form);
+  const sectionAnswers = {};
+  for (const [k,v] of formData.entries()) sectionAnswers[k] = v.trim();
+
+  // merge into stored answers
+  answers = answers || {};
+  answers[TEST_NAME] = sectionAnswers;
+  sessionStorage.setItem('testAnswers', JSON.stringify(answers));
+
+  // get application object and testsToTake queue
+  const app = JSON.parse(sessionStorage.getItem('teacher
