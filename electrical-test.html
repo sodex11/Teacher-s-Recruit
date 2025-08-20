@@ -215,7 +215,25 @@
     }
     localStorage.setItem('electricalScore', String(score));
     window.location.href = 'application-success.html';
-  });
+  }
+  document.getElementById("examForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // pull queue + index
+  let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
+  let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
+
+  idx++; // move to next
+  if (idx < queue.length) {
+    sessionStorage.setItem("currentExamIndex", idx.toString());
+    window.location.href = queue[idx];  // go to next exam
+  } else {
+    // all done → show success page
+    sessionStorage.removeItem("examQueue");
+    sessionStorage.removeItem("currentExamIndex");
+    window.location.href = "success.html";
+  }
+});
 </script>
 </body>
 </html>
