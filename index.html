@@ -157,6 +157,10 @@ form.addEventListener('submit', (e) => {
 
   // redirect to first test
   window.location.href = pages[0];
+ 
+  if(localStorage.getItem("examCompleted") === "true"){
+   document.body.innerHTML = "<h2 style='color:red;text-align:center;'>You have already submitted the exam.</h2>";
+}
 });
 </script>
 </body>
