@@ -62,7 +62,7 @@
       <textarea id="bio" name="bio" required placeholder="Briefly describe your approach (one or two lines)"></textarea>
 
       <div class="note">
-        Pick the subjects you will take a test in. After submitting your application you'll be directed to the timed test(s).  
+        Pick the subjects you will take a test in. After submitting your application, you'll be directed to the timed test(s).  
         <strong>Each subject test is 7 minutes.</strong>
       </div>
 
@@ -132,7 +132,7 @@ form.addEventListener('submit', (e) => {
   const pages = [];
   if (checkedBoxes.includes('Physics')) pages.push('physics-test.html');
   if (checkedBoxes.includes('Mathematics')) pages.push('maths-test.html');
-  if (checkedBoxes.includes('Further Mathematics')) pages.push('further-test.html');
+  if (checkedBoxes.includes('Further Mathematics')) pages.push('fmaths.html'); // FIXED filename
   if (checkedBoxes.includes('Electrical')) pages.push('electrical-test.html');
 
   const app = {
@@ -150,15 +150,12 @@ form.addEventListener('submit', (e) => {
     testsToTake: pages
   };
 
-  // store app and reset test answers
+  // Save application + exam queue in sessionStorage
   sessionStorage.setItem('teacherApplication', JSON.stringify(app));
-  sessionStorage.setItem('testAnswers', JSON.stringify({}));
+  sessionStorage.setItem('examQueue', JSON.stringify(pages));
+  sessionStorage.setItem('currentExamIndex', "0");
 
   // redirect to first test
-  if (!pages.length) {
-    alert('No tests assigned for the selected subjects.');
-    return;
-  }
   window.location.href = pages[0];
 });
 </script>
