@@ -18,7 +18,7 @@
 <h1>Further Maths Test</h1>
 <div class="timer">Time Remaining: <span id="time">07:00</span></div>
 
-<form id="fmForm">
+<form id="examForm">
   <div class="question">
     <p>1) If \(z = 3 + 4i\), then \(|z|=\)</p>
     <label><input type="radio" name="q1" value="A"> 5</label><br>
@@ -193,11 +193,11 @@
     timeLeft--;
     if (timeLeft < 0) {
       clearInterval(timer);
-      document.getElementById('fmForm').requestSubmit();
+      document.getElementById('examForm').requestSubmit();
     }
   }, 1000);
 
-  // Key (hidden)
+  // Answer key
   const key = {
     q1:'A', q2:'D', q3:'B', q4:'A', q5:'D',
     q6:'B', q7:'B', q8:'A', q9:'D', q10:'A',
@@ -205,35 +205,34 @@
     q16:'B', q17:'D', q18:'B', q19:'B', q20:'A'
   };
 
-  document.getElementById('fmForm').addEventListener('submit', (e) => {
+  // Handle submission
+  document.getElementById("examForm").addEventListener("submit", function(e) {
     e.preventDefault();
     clearInterval(timer);
+
+    // Score test
     let score = 0;
     for (const q in key) {
       const sel = document.querySelector(`input[name="${q}"]:checked`);
       if (sel && sel.value === key[q]) score++;
     }
     localStorage.setItem('furtherMathsScore', String(score));
-    window.location.href = 'application-success.html';
-  }
-document.getElementById("examForm").addEventListener("submit", function(e) {
-  e.preventDefault();
 
-  // pull queue + index
-  let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
-  let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
+    // Navigate through exam queue
+    let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
+    let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
 
-  idx++; // move to next
-  if (idx < queue.length) {
-    sessionStorage.setItem("currentExamIndex", idx.toString());
-    window.location.href = queue[idx];  // go to next exam
-  } else {
-    // all done → show success page
-    sessionStorage.removeItem("examQueue");
-    sessionStorage.removeItem("currentExamIndex");
-    window.location.href = "success.html";
-  }
-});                                                     
+    idx++;
+    if (idx < queue.length) {
+      sessionStorage.setItem("currentExamIndex", idx.toString());
+      window.location.href = queue[idx];  // go to next exam
+    } else {
+      // All done → success page
+      sessionStorage.removeItem("examQueue");
+      sessionStorage.removeItem("currentExamIndex");
+      window.location.href = "success.html";
+    }
+  });
 </script>
 </body>
 </html>
