@@ -178,7 +178,6 @@
     <label><input type="radio" name="q20" value="C"> 13</label><br>
     <label><input type="radio" name="q20" value="D"> 25</label>
   </div>
-
   <div class="submit-wrap"><button type="submit">Submit Test</button></div>
 </form>
 
@@ -197,7 +196,7 @@
     }
   }, 1000);
 
-  // Answer key (hidden)
+  // Answer key
   const key = {
     q1:'A', q2:'A', q3:'C', q4:'A', q5:'C',
     q6:'C', q7:'B', q8:'B', q9:'A', q10:'A',
@@ -205,35 +204,34 @@
     q16:'C', q17:'A', q18:'C', q19:'C', q20:'B'
   };
 
+  // On submit
   document.getElementById('mathsForm').addEventListener('submit', (e) => {
     e.preventDefault();
     clearInterval(timer);
+
+    // calculate score
     let score = 0;
     for (const q in key) {
       const sel = document.querySelector(`input[name="${q}"]:checked`);
       if (sel && sel.value === key[q]) score++;
     }
     localStorage.setItem('mathsScore', String(score));
-    window.location.href = 'application-success.html';
-  }
-  document.getElementById("examForm").addEventListener("submit", function(e) {
-  e.preventDefault();
 
-  // pull queue + index
-  let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
-  let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
+    // handle exam queue
+    let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
+    let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
 
-  idx++; // move to next
-  if (idx < queue.length) {
-    sessionStorage.setItem("currentExamIndex", idx.toString());
-    window.location.href = queue[idx];  // go to next exam
-  } else {
-    // all done → show success page
-    sessionStorage.removeItem("examQueue");
-    sessionStorage.removeItem("currentExamIndex");
-    window.location.href = "success.html";
-  }
-});                                                      
+    idx++; // move to next exam
+    if (idx < queue.length) {
+      sessionStorage.setItem("currentExamIndex", idx.toString());
+      window.location.href = queue[idx];
+    } else {
+      // finished all exams
+      sessionStorage.removeItem("examQueue");
+      sessionStorage.removeItem("currentExamIndex");
+      window.location.href = "success.html";
+    }
+  });
 </script>
 </body>
 </html>
