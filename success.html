@@ -51,5 +51,15 @@
     <p>You have successfully completed all your selected exams.</p>
     <a>We will get in touch</a>
   </div>
+  <script>
+// prevent back navigation
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.go(1);
+};
+
+// mark exam as completed in localStorage
+localStorage.setItem("examCompleted", "true");
+</script>
 </body>
 </html>
