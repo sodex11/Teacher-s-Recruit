@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Apply — Online Teacher Recruitment</title>
 <style>
-  /* Minimal theme consistent with earlier design */
   body { font-family: Arial, sans-serif; background:#f6f7fb; padding:20px; }
   .container { max-width:980px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.06); }
   label { display:block; margin-top:12px; font-weight:600; color:#0f172a; }
@@ -50,8 +49,8 @@
       <div class="checkbox-group" id="subjectsList">
         <label><input type="checkbox" value="Physics">Physics</label>
         <label><input type="checkbox" value="Mathematics">Mathematics</label>
-        <label><input type="checkbox" value="Engineering">Engineering</label>
         <label><input type="checkbox" value="Further Mathematics">Further Mathematics</label>
+        <label><input type="checkbox" value="Electrical">Electrical</label>
         <label><input type="checkbox" value="Other">Other</label>
       </div>
       <input id="otherSubject" name="otherSubject" placeholder="Specify other subject" style="display:none; margin-top:8px;">
@@ -62,14 +61,17 @@
       <label>Short bio *</label>
       <textarea id="bio" name="bio" required placeholder="Briefly describe your approach (one or two lines)"></textarea>
 
-      <div class="note">Pick the subjects you will take a test in. After submitting application you'll be directed to the timed test(s). Each section is 15 minutes.</div>
+      <div class="note">
+        Pick the subjects you will take a test in. After submitting your application you'll be directed to the timed test(s).  
+        <strong>Each subject test is 7 minutes.</strong>
+      </div>
 
       <button type="submit">Submit Application & Start Tests</button>
     </form>
   </div>
 
 <script>
-const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // final POST happens after tests
+const FORMSPREE_URL = 'https://formspree.io/f/mvgqwywl'; // final POST after tests
 
 // Elements
 const form = document.getElementById('appForm');
@@ -91,14 +93,15 @@ schoolType.addEventListener('change', () => {
   otherSchool.style.display = schoolType.value === 'Other' ? 'block' : 'none';
   grade.innerHTML = '<option value="">Select grade</option>';
   const arr = gradesBySchool[schoolType.value] || [];
-  arr.forEach(g => { const o = document.createElement('option'); o.value = g; o.textContent = g; grade.appendChild(o); });
+  arr.forEach(g => { 
+    const o = document.createElement('option'); 
+    o.value = g; 
+    o.textContent = g; 
+    grade.appendChild(o); 
+  });
 });
 
-subjectsList.addEventListener('change', () => {
-  // no-op but keep for future
-});
-
-// Show otherSubject if checkbox Other checked
+// Show otherSubject if "Other" checked
 subjectsList.addEventListener('click', (ev) => {
   if (ev.target && ev.target.type === 'checkbox') {
     const cb = ev.target;
@@ -106,15 +109,18 @@ subjectsList.addEventListener('click', (ev) => {
   }
 });
 
-// On submit: validate minimal, gather selected subjects, store application + test order in sessionStorage, redirect to first test page
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // simple validation
+  // validation
   const required = ['fullName','email','phone','schoolName','fee','bio'];
   for (const id of required) {
     const el = document.getElementById(id) || document.querySelector(`[name="${id}"]`);
-    if (!el || !el.value.trim()) { alert('Please fill all required fields.'); el && el.focus(); return; }
+    if (!el || !el.value.trim()) { 
+      alert('Please fill all required fields.'); 
+      el && el.focus(); 
+      return; 
+    }
   }
   if (!grade.value) { alert('Please select your degree grade'); grade.focus(); return; }
 
@@ -122,13 +128,13 @@ form.addEventListener('submit', (e) => {
   const checkedBoxes = Array.from(subjectsList.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
   if (checkedBoxes.length === 0) { alert('Please pick at least one subject.'); return; }
 
-  // Map subjects to test pages (we will use: Physics -> physics-test.html, Mathematics -> maths-test.html, Engineering/Further Mathematics -> electrical-test.html)
+  // map subjects → test pages
   const pages = [];
   if (checkedBoxes.includes('Physics')) pages.push('physics-test.html');
-  if (checkedBoxes.includes('Mathematics') || checkedBoxes.includes('Further Mathematics')) pages.push('maths-test.html');
-  if (checkedBoxes.includes('Engineering')) pages.push('electrical-test.html');
+  if (checkedBoxes.includes('Mathematics')) pages.push('maths-test.html');
+  if (checkedBoxes.includes('Further Mathematics')) pages.push('further-test.html');
+  if (checkedBoxes.includes('Electrical')) pages.push('electrical-test.html');
 
-  // Prepare application object
   const app = {
     fullName: document.getElementById('fullName').value.trim(),
     email: document.getElementById('email').value.trim(),
@@ -141,21 +147,19 @@ form.addEventListener('submit', (e) => {
     otherSubject: otherSubject.value.trim(),
     fee: document.getElementById('fee').value,
     bio: document.getElementById('bio').value.trim(),
-    testsToTake: pages // queue of tests
+    testsToTake: pages
   };
 
-  // save to sessionStorage
+  // store app and reset test answers
   sessionStorage.setItem('teacherApplication', JSON.stringify(app));
-  sessionStorage.removeItem('testAnswers'); // clear any previous
-  sessionStorage.setItem('testAnswers', JSON.stringify({})); // holder
+  sessionStorage.setItem('testAnswers', JSON.stringify({}));
 
-  // navigate to first page in list
-  const first = pages[0];
-  if (!first) {
+  // redirect to first test
+  if (!pages.length) {
     alert('No tests assigned for the selected subjects.');
     return;
   }
-  window.location.href = first;
+  window.location.href = pages[0];
 });
 </script>
 </body>
