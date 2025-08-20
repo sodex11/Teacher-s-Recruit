@@ -18,7 +18,7 @@
 <h1>Electrical & Electronics Test</h1>
 <div class="timer">Time Remaining: <span id="time">07:00</span></div>
 
-<form id="eeForm">
+<form id="examForm">
   <div class="question">
     <p>1) Ohm’s law states \( V = IR \). If \(I=2\,\text{A}\) and \(R=5\,\Omega\), \(V=\)</p>
     <label><input type="radio" name="q1" value="A"> 2 V</label><br>
@@ -193,11 +193,11 @@
     timeLeft--;
     if (timeLeft < 0) {
       clearInterval(timer);
-      document.getElementById('eeForm').requestSubmit();
+      document.getElementById('examForm').requestSubmit();
     }
   }, 1000);
 
-  // Key (hidden)
+  // Answer key
   const key = {
     q1:'B', q2:'A', q3:'B', q4:'B', q5:'A',
     q6:'B', q7:'A', q8:'B', q9:'B', q10:'B',
@@ -205,35 +205,33 @@
     q16:'B', q17:'B', q18:'B', q19:'C', q20:'B'
   };
 
-  document.getElementById('eeForm').addEventListener('submit', (e) => {
+  // Form submission
+  document.getElementById("examForm").addEventListener("submit", function(e) {
     e.preventDefault();
     clearInterval(timer);
+
+    // Grade test
     let score = 0;
     for (const q in key) {
       const sel = document.querySelector(`input[name="${q}"]:checked`);
       if (sel && sel.value === key[q]) score++;
     }
-    localStorage.setItem('electricalScore', String(score));
-    window.location.href = 'application-success.html';
-  }
-  document.getElementById("examForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+    localStorage.setItem("electricalScore", String(score));
 
-  // pull queue + index
-  let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
-  let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
+    // Navigate through exam queue
+    let queue = JSON.parse(sessionStorage.getItem("examQueue") || "[]");
+    let idx = parseInt(sessionStorage.getItem("currentExamIndex") || "0", 10);
 
-  idx++; // move to next
-  if (idx < queue.length) {
-    sessionStorage.setItem("currentExamIndex", idx.toString());
-    window.location.href = queue[idx];  // go to next exam
-  } else {
-    // all done → show success page
-    sessionStorage.removeItem("examQueue");
-    sessionStorage.removeItem("currentExamIndex");
-    window.location.href = "success.html";
-  }
-});
+    idx++; // move to next
+    if (idx < queue.length) {
+      sessionStorage.setItem("currentExamIndex", idx.toString());
+      window.location.href = queue[idx];  // go to next exam page
+    } else {
+      sessionStorage.removeItem("examQueue");
+      sessionStorage.removeItem("currentExamIndex");
+      window.location.href = "success.html";  // all done
+    }
+  });
 </script>
 </body>
 </html>
