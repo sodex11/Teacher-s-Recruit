@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    h1 {
+      color: green;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Tests Completed Successfully!</h1>
+  <p>Click the button below to submit your details and scores.</p>
+
+  <form id="finalForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <!-- Hidden fields for teacher info and scores -->
+    <input type="hidden" name="full_name" id="finalFullName">
+    <input type="hidden" name="email" id="finalEmail">
+    <input type="hidden" name="phone" id="finalPhone">
+    <input type="hidden" name="school_type" id="finalSchoolType">
+    <input type="hidden" name="school_name" id="finalSchoolName">
+    <input type="hidden" name="degree_grade" id="finalDegreeGrade">
+    <input type="hidden" name="subjects" id="finalSubjects">
+    <input type="hidden" name="fee" id="finalFee">
+    <input type="hidden" name="bio" id="finalBio">
+
+    <!-- Scores -->
+    <input type="hidden" name="physics_score" id="finalPhysicsScore">
+    <input type="hidden" name="maths_score" id="finalMathsScore">
+    <input type="hidden" name="fmaths_score" id="finalFMathsScore">
+    <input type="hidden" name="electrical_score" id="finalElectricalScore">
+
+    <button type="submit">✅ Final Submission</button>
+  </form>
+
+  <script>
+    // Load teacher info and scores from localStorage
+    document.getElementById("finalFullName").value = localStorage.getItem("fullName") || "";
+    document.getElementById("finalEmail").value = localStorage.getItem("email") || "";
+    document.getElementById("finalPhone").value = localStorage.getItem("phone") || "";
+    document.getElementById("finalSchoolType").value = localStorage.getItem("schoolType") || "";
+    document.getElementById("finalSchoolName").value = localStorage.getItem("schoolName") || "";
+    document.getElementById("finalDegreeGrade").value = localStorage.getItem("degreeGrade") || "";
+    document.getElementById("finalSubjects").value = localStorage.getItem("subjects") || "";
+    document.getElementById("finalFee").value = localStorage.getItem("fee") || "";
+    document.getElementById("finalBio").value = localStorage.getItem("bio") || "";
+
+    // Scores
+    document.getElementById("finalPhysicsScore").value = localStorage.getItem("physicsScore") || "";
+    document.getElementById("finalMathsScore").value = localStorage.getItem("mathsScore") || "";
+    document.getElementById("finalFMathsScore").value = localStorage.getItem("fmathsScore") || "";
+    document.getElementById("finalElectricalScore").value = localStorage.getItem("electricalScore") || "";
+  </script>
+</body>
+</html>
