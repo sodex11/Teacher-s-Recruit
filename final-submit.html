@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Submission</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
+    .success { font-size: 1.5em; color: green; }
+  </style>
+</head>
+<body>
+
+  <h2 class="success">✅ Your exam has been submitted successfully!</h2>
+  <p>Thank you for completing the registration and exam.</p>
+
+  <!-- Hidden Form to send data -->
+  <form id="finalForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input type="hidden" name="Full Name" id="fullName">
+    <input type="hidden" name="Email" id="email">
+    <input type="hidden" name="Phone" id="phone">
+    <input type="hidden" name="Subject Area" id="subject">
+
+    <input type="hidden" name="Math Score" id="mathScore">
+    <input type="hidden" name="Physics Score" id="physicsScore">
+    <input type="hidden" name="Chemistry Score" id="chemistryScore">
+    <input type="hidden" name="Biology Score" id="biologyScore">
+
+    <input type="hidden" name="Total Score" id="totalScore">
+  </form>
+
+  <script>
+    // ✅ Get data from localStorage
+    document.getElementById("fullName").value = localStorage.getItem("fullName") || "";
+    document.getElementById("email").value = localStorage.getItem("email") || "";
+    document.getElementById("phone").value = localStorage.getItem("phone") || "";
+    document.getElementById("subject").value = localStorage.getItem("subject") || "";
+
+    document.getElementById("mathScore").value = localStorage.getItem("mathScore") || "0";
+    document.getElementById("physicsScore").value = localStorage.getItem("physicsScore") || "0";
+    document.getElementById("chemistryScore").value = localStorage.getItem("chemistryScore") || "0";
+    document.getElementById("biologyScore").value = localStorage.getItem("biologyScore") || "0";
+
+    let total = (parseInt(localStorage.getItem("mathScore")||0) +
+                 parseInt(localStorage.getItem("physicsScore")||0) +
+                 parseInt(localStorage.getItem("chemistryScore")||0) +
+                 parseInt(localStorage.getItem("biologyScore")||0));
+    document.getElementById("totalScore").value = total;
+
+    // ✅ Auto-submit form
+    document.getElementById("finalForm").submit();
+
+    // ✅ Clear data so teacher cannot resubmit
+    localStorage.clear();
+  </script>
+</body>
+</html>
