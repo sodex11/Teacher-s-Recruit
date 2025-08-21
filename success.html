@@ -38,6 +38,7 @@
       border-radius: 6px;
       font-weight: bold;
       display: inline-block;
+      cursor: pointer;
     }
     .btn:hover {
       background: #4facfe;
@@ -49,17 +50,62 @@
   <div class="container">
     <h1>🎉 Registration Completed!</h1>
     <p>You have successfully completed all your selected exams.</p>
-    <a>We will get in touch</a>
+    <button id="finalSubmit" class="btn">📨 Final Submit</button>
   </div>
-  <script>
-// prevent back navigation
-history.pushState(null, null, location.href);
-window.onpopstate = function () {
-    history.go(1);
-};
 
-// mark exam as completed in localStorage
-localStorage.setItem("examCompleted", "true");
-</script>
+  <script>
+    // Prevent back navigation
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      history.go(1);
+    };
+
+    // Mark exam as completed
+    localStorage.setItem("examCompleted", "true");
+
+    // Handle Final Submission
+    document.getElementById("finalSubmit").addEventListener("click", function () {
+      // Collect application data (saved earlier in localStorage from index.html)
+      const applicationData = {
+        fullName: localStorage.getItem("fullName"),
+        email: localStorage.getItem("email"),
+        phone: localStorage.getItem("phone"),
+        schoolType: localStorage.getItem("schoolType"),
+        schoolName: localStorage.getItem("schoolName"),
+        degreeGrade: localStorage.getItem("degreeGrade"),
+        subjectsCanTeach: localStorage.getItem("subjectsCanTeach"),
+        feePerHour: localStorage.getItem("feePerHour"),
+        bio: localStorage.getItem("bio"),
+        subjectsChosen: localStorage.getItem("subjectsChosen"),
+      };
+
+      // Collect test results
+      const testResults = {
+        physics: localStorage.getItem("physicsScore"),
+        maths: localStorage.getItem("mathsScore"),
+        fmaths: localStorage.getItem("fmathsScore"),
+        electrical: localStorage.getItem("electricalScore"),
+      };
+
+      // Merge everything
+      const finalData = { ...applicationData, testResults };
+
+      // Send to Formspree
+      fetch("https://formspree.io/f/mvgqwywl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalData),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("✅ Application & Test Results Submitted Successfully!");
+          localStorage.clear(); // clear storage after successful submission
+        } else {
+          alert("❌ Something went wrong. Try again.");
+        }
+      })
+      .catch(error => alert("Error: " + error));
+    });
+  </script>
 </body>
 </html>
