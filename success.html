@@ -3,109 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Successful</title>
+  <title>Application Complete</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: white;
       text-align: center;
+      padding: 50px;
+      background: #f9f9f9;
     }
     .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-    .btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #00f2fe;
-      color: black;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      display: inline-block;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: #4facfe;
+    button {
+      padding: 12px 20px;
+      background: #28a745;
       color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #218838;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🎉 Registration Completed!</h1>
-    <p>You have successfully completed all your selected exams.</p>
-    <button id="finalSubmit" class="btn">📨 Final Submit</button>
+    <h2>✅ Application Complete!</h2>
+    <p>Click below to send your application details and test scores to our system.</p>
+    <button onclick="finalSubmit()">Final Submit</button>
   </div>
 
   <script>
-    // Prevent back navigation
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-      history.go(1);
-    };
+    function finalSubmit() {
+      // Retrieve stored info and scores
+      const teacherInfo = JSON.parse(localStorage.getItem('teacherInfo')) || {};
+      const scores = JSON.parse(localStorage.getItem('scores')) || {};
 
-    // Mark exam as completed
-    localStorage.setItem("examCompleted", "true");
-
-    // Handle Final Submission
-    document.getElementById("finalSubmit").addEventListener("click", function () {
-      // Collect application data (saved earlier in localStorage from index.html)
-      const applicationData = {
-        fullName: localStorage.getItem("fullName"),
-        email: localStorage.getItem("email"),
-        phone: localStorage.getItem("phone"),
-        schoolType: localStorage.getItem("schoolType"),
-        schoolName: localStorage.getItem("schoolName"),
-        degreeGrade: localStorage.getItem("degreeGrade"),
-        subjectsCanTeach: localStorage.getItem("subjectsCanTeach"),
-        feePerHour: localStorage.getItem("feePerHour"),
-        bio: localStorage.getItem("bio"),
-        subjectsChosen: localStorage.getItem("subjectsChosen"),
+      // Prepare message
+      const formData = {
+        ...teacherInfo,
+        scores: JSON.stringify(scores)
       };
-
-      // Collect test results
-      const testResults = {
-        physics: localStorage.getItem("physicsScore"),
-        maths: localStorage.getItem("mathsScore"),
-        fmaths: localStorage.getItem("fmathsScore"),
-        electrical: localStorage.getItem("electricalScore"),
-      };
-
-      // Merge everything
-      const finalData = { ...applicationData, testResults };
 
       // Send to Formspree
-      fetch("https://formspree.io/f/mvgqwywl", {
+      fetch("https://formspree.io/f/YOUR_FORM_ID", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalData),
+        body: JSON.stringify(formData)
       })
       .then(response => {
         if (response.ok) {
-          alert("✅ Application & Test Results Submitted Successfully!");
-          localStorage.clear(); // clear storage after successful submission
+          alert("✅ Your application has been submitted successfully!");
+          localStorage.clear();
         } else {
-          alert("❌ Something went wrong. Try again.");
+          alert("❌ Submission failed. Try again.");
         }
       })
-      .catch(error => alert("Error: " + error));
-    });
+      .catch(error => alert("⚠️ Error: " + error));
+    }
   </script>
 </body>
 </html>
