@@ -3,72 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Complete</title>
+  <title>Success</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
-      background: #f9f9f9;
+      margin: 50px;
     }
-    .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: auto;
+    h1 {
+      color: green;
     }
     button {
-      padding: 12px 20px;
-      background: #28a745;
+      background-color: #4CAF50;
       color: white;
+      padding: 12px 24px;
+      margin-top: 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 20px;
       font-size: 16px;
     }
     button:hover {
-      background: #218838;
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>✅ Application Complete!</h2>
-    <p>Click below to send your application details and test scores to our system.</p>
-    <button onclick="finalSubmit()">Final Submit</button>
-  </div>
+  <h1>🎉 Tests Completed Successfully!</h1>
+  <p>Click the button below to submit your details and scores.</p>
+
+  <form id="finalForm" action="https://formspree.io/f/mvgqwywl" method="POST">
+    <!-- Hidden fields for teacher info and scores -->
+    <input type="hidden" name="full_name" id="finalFullName">
+    <input type="hidden" name="email" id="finalEmail">
+    <input type="hidden" name="phone" id="finalPhone">
+    <input type="hidden" name="school_type" id="finalSchoolType">
+    <input type="hidden" name="school_name" id="finalSchoolName">
+    <input type="hidden" name="degree_grade" id="finalDegreeGrade">
+    <input type="hidden" name="subjects" id="finalSubjects">
+    <input type="hidden" name="fee" id="finalFee">
+    <input type="hidden" name="bio" id="finalBio">
+
+    <!-- Scores -->
+    <input type="hidden" name="physics_score" id="finalPhysicsScore">
+    <input type="hidden" name="maths_score" id="finalMathsScore">
+    <input type="hidden" name="fmaths_score" id="finalFMathsScore">
+    <input type="hidden" name="electrical_score" id="finalElectricalScore">
+
+    <button type="submit">✅ Final Submission</button>
+  </form>
 
   <script>
-    function finalSubmit() {
-      // Retrieve stored info and scores
-      const teacherInfo = JSON.parse(localStorage.getItem('teacherInfo')) || {};
-      const scores = JSON.parse(localStorage.getItem('scores')) || {};
+    // Load teacher info and scores from localStorage
+    document.getElementById("finalFullName").value = localStorage.getItem("fullName") || "";
+    document.getElementById("finalEmail").value = localStorage.getItem("email") || "";
+    document.getElementById("finalPhone").value = localStorage.getItem("phone") || "";
+    document.getElementById("finalSchoolType").value = localStorage.getItem("schoolType") || "";
+    document.getElementById("finalSchoolName").value = localStorage.getItem("schoolName") || "";
+    document.getElementById("finalDegreeGrade").value = localStorage.getItem("degreeGrade") || "";
+    document.getElementById("finalSubjects").value = localStorage.getItem("subjects") || "";
+    document.getElementById("finalFee").value = localStorage.getItem("fee") || "";
+    document.getElementById("finalBio").value = localStorage.getItem("bio") || "";
 
-      // Prepare message
-      const formData = {
-        ...teacherInfo,
-        scores: JSON.stringify(scores)
-      };
-
-      // Send to Formspree
-      fetch("https://formspree.io/f/YOUR_FORM_ID", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("✅ Your application has been submitted successfully!");
-          localStorage.clear();
-        } else {
-          alert("❌ Submission failed. Try again.");
-        }
-      })
-      .catch(error => alert("⚠️ Error: " + error));
-    }
+    // Scores
+    document.getElementById("finalPhysicsScore").value = localStorage.getItem("physicsScore") || "";
+    document.getElementById("finalMathsScore").value = localStorage.getItem("mathsScore") || "";
+    document.getElementById("finalFMathsScore").value = localStorage.getItem("fmathsScore") || "";
+    document.getElementById("finalElectricalScore").value = localStorage.getItem("electricalScore") || "";
   </script>
 </body>
 </html>
